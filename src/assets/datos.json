@@ -1,0 +1,26 @@
+{
+    "Banner": "",
+    "Foto": "",
+    "Nombre": "Facundo Ariel Froelich",
+    "Titulo": "Titulo",
+    "Informacion": "informacion acerca de",
+    "Experiencia": [
+        {
+            "Descripcion": "informacion",
+            "Logo" : "" 
+        }
+    ],
+    
+    "Educacion":[
+        {
+            "Descripcion": "Estudios",
+            "Logo": ""
+        }
+    ],
+    "Proyectos":[
+        {
+            "Titulo":"Nombre del Proyecto",
+            "Descripcion": "Descripcion del Proyecto"
+        }
+    ]
+}

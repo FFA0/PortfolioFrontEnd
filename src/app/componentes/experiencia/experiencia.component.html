@@ -1,0 +1,80 @@
+<div class="container border p-2 mt-3">
+  <div class="text-center">Experiencia Laboral</div>
+  <div class="row p-2 m-5 border">
+    <div class="col-sm-2 col-md-4 col-lg-3" >
+      <img
+        [src]="experiencia.Experiencia[0].Logo"
+        alt="Logo"
+        class="img-thumbnail img-fluid Logo"
+        #imagenLogo
+      />
+      <button class="btn btn-sm edit botonLogo" (click)="inputLogo.click()">
+        <i class="fa-solid fa-file noPointers"></i>
+      </button>
+      <input type="file" style="display: none" #inputLogo />
+    </div>
+    <div class="col-sm-10 col-md-8 col-lg-8 p-2 m-2">
+      <div>
+        <p> {{ experiencia.Experiencia[0].Descripcion }} </p>
+        <textarea class="container" hidden #texTarea ></textarea>
+      </div>
+      <div class="mt-2">
+        <button
+          class="btn edit btn-sm"
+          (click)="editarDescripcion(texTarea)"
+        >
+          <i class="fa-solid fa-pen noPointers"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <button class="btn edit btn-sm" style="margin-top: -180px" (click)="borrar($event)">
+    <i class="fa-solid fa-trash noPointers"></i>
+  </button>
+  <ng-container #contenedor></ng-container>
+  <div class="d-grid gap-2 col-6 mx-auto mt-2">
+    <button class="btn btn-primary btn-sm" (click)="agregar()">
+      <i class="fa-solid fa-plus noPointers"></i>
+    </button>
+  </div>
+</div>
+
+
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <div class="row justify-content-center m-5 border">
+    <div class="col-sm-12 col-md-8 col-lg-3 me-3" >
+      <img
+        [src]="experiencia.Experiencia[0].Logo"
+        alt="Logo"
+        class="img-thumbnail img-fluid Logo"
+        #imagenLogo
+      />
+      <button class="btn btn-sm edit botonLogo" (click)="inputLogo.click()">
+        <i class="fa-solid fa-file noPointers"></i>
+      </button>
+      <input type="file" style="display: none" #inputLogo [(ngModel)]="experiencia.Experiencia.Logo" />
+    </div>
+    <div class="col-sm-0 col-md- col-lg-8 p-2 m-2">
+      <div>
+        <p> {{ experiencia.Experiencia[0].Descripcion }} </p>
+        <textarea class="container" hidden #texTarea ></textarea>
+      </div>
+      <div class="mt-2">
+        <button
+          class="btn edit btn-sm"
+          (click)="editarDescripcion(texTarea)"
+        >
+          <i class="fa-solid fa-pen noPointers"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <button class="btn edit btn-sm" style="margin-top: -180px" (click)="borrar($event)">
+    <i class="fa-solid fa-trash noPointers"></i>
+  </button>
+  
+</ng-template>
