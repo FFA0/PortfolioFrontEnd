@@ -1,0 +1,80 @@
+<div class="container border mt-3">
+  <div class="text-center">Educación</div>
+
+  <div class="row border m-5 p-2">
+    <div class="col-sm-0 col-md-4 col-lg-3">
+      <img src="" alt="Logo" class="p-0 img-thumbnail Logo" />
+      <div>
+        <button
+          class="btn btn-sm btn- primary edit botonLogo"
+          (click)="cambiarLogo.click()"
+        >
+          <i class="fa-solid fa-file noPointers"></i>
+        </button>
+        <input
+          type="file"
+          hidden
+          #cambiarLogo
+          (change)="logoNuevo(cambiarLogo.value)"
+        />
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8">
+      <div>
+        <p>texto</p>
+        <textarea class="container" hidden #educacion></textarea>
+      </div>
+      <div>
+        <button class="btn edit btn-sm" (click)="borrar($event)">
+          <i class="fa-solid fa-trash noPointers"></i>
+        </button>
+        <button class="btn edit btn-sm" (click)="editar(educacion)">
+          <i class="fa-solid fa-pen noPointers"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-container #contenedor></ng-container>
+  <div class="d-grid gap-2 col-6 mx-auto m-2">
+    <button class="btn btn-primary btn-sm" (click)="agregar()">
+      <i class="fa-solid fa-plus noPointers"></i>
+    </button>
+  </div>
+
+  <!-- Template -->
+  <ng-template #clon>
+    <div class="row border m-5 p-2">
+      <div class="col-sm-0 col-md-4 col-lg-3">
+        <img src="" alt="Logo" class="p-0 img-thumbnail Logo" />
+        <div>
+          <button
+            class="btn btn-sm btn- primary edit botonLogo"
+            (click)="cambiarLogo.click()"
+          >
+            <i class="fa-solid fa-file noPointers"></i>
+          </button>
+          <input
+            type="file"
+            hidden
+            #cambiarLogo
+            (change)="logoNuevo(cambiarLogo.value)"
+          />
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-8">
+        <div>
+          <p>texto</p>
+          <textarea class="container" hidden #educacion></textarea>
+        </div>
+        <div>
+          <button class="btn edit btn-sm" (click)="borrar($event)">
+            <i class="fa-solid fa-trash noPointers"></i>
+          </button>
+          <button class="btn edit btn-sm" (click)="editar(educacion)">
+            <i class="fa-solid fa-pen noPointers"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

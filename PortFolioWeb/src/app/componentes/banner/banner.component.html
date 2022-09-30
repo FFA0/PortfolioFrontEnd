@@ -1,0 +1,21 @@
+<div class="container border p-3 mt-3">
+  <div class="border text-center">
+    <img
+      src="{{imagenActual}}"
+      class="imagenBanner img-fluid"
+      alt="Banner"
+    />
+
+    <button class="btn btn-sm edit botonBanner" (click)="nuevoBanner.click()">
+      <i class="fa-solid fa-file noPointers"></i>
+    </button>
+
+    <input type="file" style="display: none" #nuevoBanner (change)="cambiarBanner()"/>
+  </div>
+</div>
+
+<app-acerca-de></app-acerca-de>
+<app-experiencia></app-experiencia>
+<app-educacion></app-educacion>
+<app-proyecto></app-proyecto>
+<app-footer></app-footer>

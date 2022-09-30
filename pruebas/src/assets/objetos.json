@@ -1,0 +1,16 @@
+{
+    "experienciaLaboral": [
+        {
+            "empresa": "1",
+            "logo": "1"
+        },
+        {
+            "empresa": "2",
+            "logo": "2"
+        },
+        {
+            "empresa": "3",
+            "logo": "3"
+        }
+    ]
+}
