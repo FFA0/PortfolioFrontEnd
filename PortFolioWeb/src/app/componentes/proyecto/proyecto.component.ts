@@ -38,7 +38,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   eliminar(e : any){
-    e.target.parentElement.remove();
+    e.target.parentElement.parentElement.remove();
   }
 
   constructor(private datos : DatosService) {}
