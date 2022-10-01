@@ -35,7 +35,6 @@ export class ProyectoComponent implements OnInit {
 
     this.contenedor.createEmbeddedView(this.clon);
 
-    console.log(this.proyectos)
   }
 
   eliminar(e : any){

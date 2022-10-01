@@ -53,8 +53,6 @@ export class ExperienciaComponent implements OnInit {
 
     this.contenedor.createEmbeddedView(this.template);
 
-    console.log(this.experiencia)
-
   }
 
   constructor(private datos: DatosService) { }
