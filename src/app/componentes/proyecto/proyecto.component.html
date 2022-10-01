@@ -1,53 +1,42 @@
 <div class="container border mt-2">
-  <div class="mt-3 text-center">
-    Proyectos En Los Que Trabaje
-  </div>
-  <div class="m-3 p-3 border">
-    <div>
-      <p class="text-center">{{ proyectos.Proyectos[0].Titulo }}</p>
-      <textarea cols="30" rows="1" hidden #titulo></textarea>
-    </div>
-    <div>
-      <p>{{ proyectos.Proyectos[0].Descripcion }}</p>
-      <textarea cols="65" rows="5" hidden #descripcion></textarea>
-    </div>
-    <div class="p-3">
-    <button class="btn btn-sm edit" (click)="eliminar($event)">
-      <i class="fa-solid fa-trash noPointers"></i>
-    </button>
-    <button class="btn btn-sm edit " (click)="editar(titulo, descripcion)">
-      <i class="fa-solid fa-pen noPointers"></i>
-    </button>
-    </div>
-  </div>
-  <ng-container #contenedor></ng-container>
+  <div class="mt-3 text-center">Proyectos En Los Que Trabaje</div>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let proyecto of proyectos; index as i">
+      <div class="m-3 p-3 border">
+        <div>
+          <p class="text-center">{{ proyectos[i].Titulo }}</p>
+          <textarea
+            class="container"
+            [(ngModel)]="proyectos[i].Titulo"
+            hidden
+            #titulo
+          ></textarea>
+        </div>
+        <div>
+          <p>{{ proyectos[i].Descripcion }}</p>
+          <textarea
+            class="container"
+            [(ngModel)]="proyectos[i].Descripcion"
+            hidden
+            #descripcion
+          ></textarea>
+        </div>
+        <div class="p-3">
+          <button class="btn btn-sm edit" (click)="eliminar($event)">
+            <i class="fa-solid fa-trash noPointers"></i>
+          </button>
+          <button class="btn btn-sm edit" (click)="editar(titulo, descripcion)">
+            <i class="fa-solid fa-pen noPointers"></i>
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+
   <div class="d-grid gap-2 col-6 mx-auto mb-2">
-    <button class="btn btn-primary btn-sm " (click)="agregar()">
+    <button class="btn btn-primary btn-sm" (click)="agregar()">
       <i class="fa-solid fa-plus noPointers"></i>
     </button>
   </div>
 </div>
-
-
-
-<!-- Template -->
-<ng-template #template>
-  <div class="m-3 p-3 border">
-    <div>
-      <p class="text-center">{{ proyectos.Proyectos[index].Titulo }}</p>
-      <textarea cols="30" rows="1" hidden #titulo></textarea>
-    </div>
-    <div>
-      <p>{{ proyectos.Proyectos[index].Descripcion }}</p>
-      <textarea cols="65" rows="5" hidden #descripcion></textarea>
-    </div>
-    <div class="p-3">
-    <button class="btn btn-sm edit" (click)="eliminar($event)">
-      <i class="fa-solid fa-trash noPointers"></i>
-    </button>
-    <button class="btn btn-sm edit " (click)="editar(titulo, descripcion)">
-      <i class="fa-solid fa-pen noPointers"></i>
-    </button>
-    </div>
-  </div>
-</ng-template>

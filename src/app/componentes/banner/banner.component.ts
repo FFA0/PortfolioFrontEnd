@@ -8,12 +8,6 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class BannerComponent implements OnInit {
 
-  imagenActual : string = ""
-  
-  cambiarBanner(){
-    
-  }
-
   Banner: any;
 
   constructor(private datos : DatosService) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef,  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({
@@ -8,48 +8,32 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class EducacionComponent implements OnInit {
 
-  @ViewChild("clon", {read : TemplateRef}) clon! : TemplateRef<any>; //template
-  @ViewChild("contenedor", {read : ViewContainerRef}) contenedor! : ViewContainerRef; //contenedor
+  edu: any;
 
-  edu : any;
+  agregar() {
 
-  logoNuevo(id : any){
+    let array =
+    {
+      "Descripcion": "texto educacion",
+      "Logo": ""
+    };
+    this.edu.push(array)
+  }
+
+  editar(id: any) {
+    id.hidden = !id.hidden;
+  }
+
+  borrar(e: any) {
+    e.target.parentElement.parentElement.parentElement.remove();
   }
 
 
-  index : number = 1;
-
-  agregar(){
-
-    let array = 
-      {
-        "Descripcion": "texto",
-        "Logo": ""
-      };
-    
-    this.edu.Educacion.push(array)
-
-    this.edu.Educacion.index += 1;
-
-    this.contenedor.createEmbeddedView(this.clon);
-
-  }
-
-   editar(id : any){
-     id.hidden = !id.hidden;
-    id.previousSibling.textContent = id.value;
-    }
-
-  borrar(e : any){
-   e.target.parentElement.parentElement.parentElement.remove();
-  }
-
-
-  constructor(private datos : DatosService) {}
+  constructor(private datos: DatosService) { }
 
   ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data=>{
-      this.edu = data;
+    this.datos.obtenerDatos().subscribe(data => {
+      this.edu = data.Educacion;
     })
 
   }
