@@ -11,7 +11,8 @@ export class ProyectoComponent implements OnInit {
   @ViewChild("template", { read: TemplateRef }) clon!: TemplateRef<any>;
   @ViewChild("contenedor", { read: ViewContainerRef }) contenedor!: ViewContainerRef;
 
-  proyectos : any; 
+  proyectos : any;
+  index : number = 1; 
 
   editar(id: any, id2 : any){
     id.hidden = !id.hidden;
@@ -20,12 +21,24 @@ export class ProyectoComponent implements OnInit {
     id2.previousElementSibling.textContent = id2.value;
   }
 
-  agregar() {
+  agregar(){
+
+    let array = 
+      {
+        "Titulo": "texto",
+        "Descripcion": "texto2"
+      };
+    
+    this.proyectos.Proyectos.push(array)
+
+    this.proyectos.Proyectos.index += 1;
+
     this.contenedor.createEmbeddedView(this.clon);
+
   }
 
   eliminar(e : any){
-    e.target.parentElement.remove();
+    e.target.parentElement.parentElement.remove();
   }
 
   constructor(private datos : DatosService) {}
