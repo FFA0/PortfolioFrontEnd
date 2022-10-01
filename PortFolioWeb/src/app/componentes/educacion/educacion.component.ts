@@ -17,21 +17,15 @@ export class EducacionComponent implements OnInit {
   }
 
 
-  editar(id : any){
-
-  }
-
   index : number = 1;
 
   agregar(){
-    
 
     let array = 
       {
         "Descripcion": "texto",
         "Logo": ""
       };
-    
     
     this.edu.Educacion.push(array)
 
@@ -41,10 +35,10 @@ export class EducacionComponent implements OnInit {
 
   }
 
-  // editar(id : any){
-  //   id.hidden = !id.hidden;
-  //   id.previousSibling.textContent = id.value;
-  // }
+   editar(id : any){
+     id.hidden = !id.hidden;
+      id.previousSibling.textContent = id.value;
+    }
 
   borrar(e : any){
    e.target.parentElement.parentElement.parentElement.remove();
