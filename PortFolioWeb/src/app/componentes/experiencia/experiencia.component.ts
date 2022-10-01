@@ -1,9 +1,6 @@
 import {
   Component,
   OnInit,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
 } from '@angular/core'
 import { DatosService } from 'src/app/servicio/datos.service';
 
@@ -14,32 +11,21 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./experiencia.component.css'],
 })
 export class ExperienciaComponent implements OnInit {
-  @ViewChild('template', { read: TemplateRef })
-  template!: TemplateRef<any>; //el template
-
-  @ViewChild('contenedor', { read: ViewContainerRef })
-  contenedor!: ViewContainerRef; //donde añadir el template
-
 
   experiencia: any;
-  Index : number = 0;
 
   //btn editar la descripcion
   editarDescripcion(id: any) {
     id.hidden = !id.hidden;
-    id.previousSibling.textContent = id.value;
   }
-
 
   //eliminar nodo
   borrar(e: any) {
-    e.target.previousElementSibling.remove();
+    e.target.previousElementSibling.parentElement.remove();
     e.target.remove();
   }
 
   //btn para añadir el template
-
-
   agregar() {
     let array =
     {
@@ -47,20 +33,14 @@ export class ExperienciaComponent implements OnInit {
       "Logo": ""
     };
 
-    this.experiencia.Experiencia.push(array)
-
-    this.Index += 1; 
-
-    this.contenedor.createEmbeddedView(this.template);
-
-
+    this.experiencia.push(array)
   }
 
   constructor(private datos: DatosService) { }
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data => {
-      this.experiencia = data;
+      this.experiencia = data.Experiencia;
     })
   }
 }
