@@ -17,7 +17,7 @@ export class EducacionComponent implements OnInit {
   }
 
 
-  index : number = 1;
+  Index : number = 0;
 
   agregar(){
 
@@ -29,15 +29,16 @@ export class EducacionComponent implements OnInit {
     
     this.edu.Educacion.push(array)
 
-    this.edu.Educacion.index += 1;
+    this.Index += 1; 
 
     this.contenedor.createEmbeddedView(this.clon);
+
 
   }
 
    editar(id : any){
      id.hidden = !id.hidden;
-    id.previousSibling.textContent = id.value;
+     id.previousSibling.textContent = id.value;
     }
 
   borrar(e : any){

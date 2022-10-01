@@ -12,7 +12,7 @@ export class ProyectoComponent implements OnInit {
   @ViewChild("contenedor", { read: ViewContainerRef }) contenedor!: ViewContainerRef;
 
   proyectos : any;
-  index : number = 1; 
+  Index : number = 0; 
 
   editar(id: any, id2 : any){
     id.hidden = !id.hidden;
@@ -31,7 +31,7 @@ export class ProyectoComponent implements OnInit {
     
     this.proyectos.Proyectos.push(array)
 
-    this.proyectos.Proyectos.index += 1;
+    this.Index += 1; 
 
     this.contenedor.createEmbeddedView(this.clon);
 

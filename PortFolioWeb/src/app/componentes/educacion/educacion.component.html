@@ -3,7 +3,7 @@
 
   <div class="row border m-5 p-2">
     <div class="col-sm-0 col-md-4 col-lg-3">
-      <img src="" alt="Logo" class="p-0 img-thumbnail Logo" />
+      <img [src]="edu.Educacion[0].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
       <div>
         <button
           class="btn btn-sm btn- primary edit botonLogo"
@@ -45,7 +45,7 @@
   <ng-template #clon>
     <div class="row border m-5 p-2">
       <div class="col-sm-0 col-md-4 col-lg-3">
-        <img src="" alt="Logo" class="p-0 img-thumbnail Logo" />
+        <img [src]="edu.Educacion[Index].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
         <div>
           <button
             class="btn btn-sm btn- primary edit botonLogo"
@@ -63,7 +63,7 @@
       </div>
       <div class="col-sm-12 col-md-8 col-lg-8">
         <div>
-          <p>{{edu.Educacion[index].Descripcion}}</p>
+          <p>{{edu.Educacion[Index].Descripcion}}</p>
           <textarea class="container" hidden #educacion></textarea>
         </div>
         <div>

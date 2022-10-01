@@ -22,7 +22,7 @@ export class ExperienciaComponent implements OnInit {
 
 
   experiencia: any;
-  index : number = 0;
+  Index : number = 0;
 
   //btn editar la descripcion
   editarDescripcion(id: any) {
@@ -49,9 +49,10 @@ export class ExperienciaComponent implements OnInit {
 
     this.experiencia.Experiencia.push(array)
 
-    this.experiencia.Experiencia.index += 1;
+    this.Index += 1; 
 
     this.contenedor.createEmbeddedView(this.template);
+
 
   }
 
