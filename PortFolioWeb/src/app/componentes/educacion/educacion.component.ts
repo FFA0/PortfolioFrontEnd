@@ -37,7 +37,7 @@ export class EducacionComponent implements OnInit {
 
    editar(id : any){
      id.hidden = !id.hidden;
-      id.previousSibling.textContent = id.value;
+    id.previousSibling.textContent = id.value;
     }
 
   borrar(e : any){
@@ -50,7 +50,6 @@ export class EducacionComponent implements OnInit {
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data=>{
       this.edu = data;
-      console.log(this.edu)
     })
 
   }

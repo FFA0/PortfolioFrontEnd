@@ -48,7 +48,7 @@
   <div class="row justify-content-center m-5 border">
     <div class="col-sm-12 col-md-8 col-lg-3 me-3" >
       <img
-        [src]="experiencia.Experiencia[0].Logo"
+        [src]="experiencia.Experiencia[index].Logo"
         alt="Logo"
         class="img-thumbnail img-fluid Logo"
         #imagenLogo
@@ -60,7 +60,7 @@
     </div>
     <div class="col-sm-0 col-md- col-lg-8 p-2 m-2">
       <div>
-        <p> {{ experiencia.Experiencia[0].Descripcion }} </p>
+        <p> {{ experiencia.Experiencia[index].Descripcion }} </p>
         <textarea class="container" hidden #texTarea ></textarea>
       </div>
       <div class="mt-2">

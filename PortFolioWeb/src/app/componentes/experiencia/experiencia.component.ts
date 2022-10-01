@@ -20,10 +20,10 @@ export class ExperienciaComponent implements OnInit {
   @ViewChild('contenedor', { read: ViewContainerRef })
   contenedor!: ViewContainerRef; //donde añadir el template
 
-  
+
   experiencia: any;
-  
-  
+  index : number = 0;
+
   //btn editar la descripcion
   editarDescripcion(id: any) {
     id.hidden = !id.hidden;
@@ -38,8 +38,23 @@ export class ExperienciaComponent implements OnInit {
   }
 
   //btn para añadir el template
+
+
   agregar() {
+    let array =
+    {
+      "Descripcion": "texto",
+      "Logo": ""
+    };
+
+    this.experiencia.Experiencia.push(array)
+
+    this.experiencia.Experiencia.index += 1;
+
     this.contenedor.createEmbeddedView(this.template);
+
+    console.log(this.experiencia)
+
   }
 
   constructor(private datos: DatosService) { }
