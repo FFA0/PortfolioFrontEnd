@@ -2,19 +2,17 @@
   <div class="text-center">Experiencia Laboral</div>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let exp of experiencia; index as i">
-      <div class="row p-2 m-5 border">
+      <div class="row p-2 m-5 border" #borrar>
         <div class="col-sm-2 col-md-4 col-lg-3">
           <img
             [src]="experiencia[i].Logo"
             alt="Logo"
             class="img-thumbnail img-fluid Logo"
           />
-          <button class="btn btn-sm edit botonLogo" (click)="inputLogo.click()">
-            <i class="fa-solid fa-file noPointers"></i>
-          </button>
+          <app-boton-archivo (emitir)="inputLogo.click()"></app-boton-archivo>
           <input
             type="file"
-            style="display: none"
+            hidden
             [(ngModel)]="experiencia[i].Logo"
             #inputLogo
           />
@@ -26,31 +24,20 @@
               class="container"
               [(ngModel)]="experiencia[i].Descripcion"
               hidden
-              #texTarea
+              #descripcion
             ></textarea>
           </div>
           <div class="mt-2">
-            <button
-              class="btn edit btn-sm"
-              (click)="editarDescripcion(texTarea)"
-            >
-              <i class="fa-solid fa-pen noPointers"></i>
-            </button>
+            <app-boton-edicion
+              (valor)="visibilidad($event, descripcion)"
+            ></app-boton-edicion>
           </div>
         </div>
       </div>
-      <button
-        class="btn edit btn-sm"
-        style="margin-top: -180px"
-        (click)="borrar($event)"
-      >
-        <i class="fa-solid fa-trash noPointers"></i>
-      </button>
+      <app-boton-eliminar
+        (emitir)="borrarNodo($event, borrar)"
+      ></app-boton-eliminar>
     </li>
   </ul>
-  <div class="d-grid gap-2 col-6 mx-auto mt-2">
-    <button class="btn btn-primary btn-sm" (click)="agregar()">
-      <i class="fa-solid fa-plus noPointers"></i>
-    </button>
-  </div>
+  <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
 </div>

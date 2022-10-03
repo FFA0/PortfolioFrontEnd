@@ -15,14 +15,13 @@ export class ExperienciaComponent implements OnInit {
   experiencia: any;
 
   //btn editar la descripcion
-  editarDescripcion(id: any) {
-    id.hidden = !id.hidden;
+  visibilidad(e : any, id: any) {
+    id.hidden = e;
   }
 
   //eliminar nodo
-  borrar(e: any) {
-    e.target.previousElementSibling.parentElement.remove();
-    e.target.remove();
+  borrarNodo(e: any, id : any) {
+    id.parentElement.remove();
   }
 
   //btn para añadir el template

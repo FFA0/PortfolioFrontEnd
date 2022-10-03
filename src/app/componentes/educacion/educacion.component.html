@@ -2,40 +2,34 @@
   <div class="text-center">Educación</div>
 
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let educacion of edu; index as i">
-      <div class="row border m-5 p-2">
+    <li class="list-group-item mb-2" *ngFor="let educacion of edu; index as i">
+      <div class="row border m-5 p-2" #borrar>
         <div class="col-sm-0 col-md-4 col-lg-3">
           <img [src]="edu[i].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
-          <div>
-            <button
-              class="btn btn-sm btn- primary edit botonLogo"
-              (click)="cambiarLogo.click()"
-            >
-              <i class="fa-solid fa-file noPointers"></i>
-            </button>
-            <input type="file" hidden #cambiarLogo [(ngModel)]="edu[i].logo" />
-          </div>
+          <app-boton-archivo (emitir)="cambiarLogo.click()"></app-boton-archivo>
+          <input type="file" hidden #cambiarLogo [(ngModel)]="edu[i].Logo" />
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8">
           <div>
             <p>{{ edu[i].Descripcion }}</p>
-            <textarea class="container" hidden #educacionTexto [(ngModel)]="edu[i].Descripcion"></textarea>
+            <textarea
+              class="container"
+              hidden
+              #educacionTexto
+              [(ngModel)]="edu[i].Descripcion"
+            ></textarea>
           </div>
           <div>
-            <button class="btn edit btn-sm" (click)="borrar($event)">
-              <i class="fa-solid fa-trash noPointers"></i>
-            </button>
-            <button class="btn edit btn-sm" (click)="editar(educacionTexto)">
-              <i class="fa-solid fa-pen noPointers"></i>
-            </button>
+            <app-boton-eliminar
+              (emitir)="borrarNodo($event, borrar)"
+            ></app-boton-eliminar>
+            <app-boton-edicion
+              (valor)="visibilidad($event, educacionTexto)"
+            ></app-boton-edicion>
           </div>
         </div>
       </div>
     </li>
   </ul>
-  <div class="d-grid gap-2 col-6 mx-auto m-2">
-    <button class="btn btn-primary btn-sm" (click)="agregar()">
-      <i class="fa-solid fa-plus noPointers"></i>
-    </button>
-  </div>
+  <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
 </div>

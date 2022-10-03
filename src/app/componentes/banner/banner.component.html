@@ -2,9 +2,7 @@
   <div class="border text-center">
     <img [src]="Banner" class="imagenBanner img-fluid" alt="Banner" />
 
-    <button class="btn btn-sm edit botonBanner" (click)="nuevoBanner.click()">
-      <i class="fa-solid fa-file noPointers"></i>
-    </button>
+    <app-boton-archivo (emitir)="nuevoBanner.click()"></app-boton-archivo>
 
     <input
       type="file"

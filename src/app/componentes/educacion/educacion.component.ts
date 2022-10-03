@@ -20,12 +20,12 @@ export class EducacionComponent implements OnInit {
     this.edu.push(array)
   }
 
-  editar(id: any) {
-    id.hidden = !id.hidden;
+  visibilidad(e : any, id : any) {
+    id.hidden = e;
   }
 
-  borrar(e: any) {
-    e.target.parentElement.parentElement.parentElement.remove();
+  borrarNodo(e: any, id : any) {
+    id.parentElement.remove();
   }
 
 

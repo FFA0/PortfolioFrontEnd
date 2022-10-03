@@ -10,9 +10,7 @@
         />
       </div>
       <input type="file" hidden #fotoInput [(ngModel)]="Acerca.Foto" />
-      <button class="btn btn-sm edit" (click)="fotoInput.click()">
-        <i class="fa-solid fa-file noPointers"></i>
-      </button>
+      <app-boton-archivo (emitir)="fotoInput.click()"></app-boton-archivo>
       <div>
         <p>{{ Acerca.Nombre }}</p>
         <p>{{ Acerca.Titulo }}</p>
@@ -25,9 +23,9 @@
         ></textarea>
       </div>
       <div>
-        <button class="btn edit btn-sm m-1" (click)="botonEditar(titulo)">
-          <i class="fa-solid fa-pen noPointers"></i>
-        </button>
+        <app-boton-edicion
+          (valor)="visibilidad($event, titulo)"
+        ></app-boton-edicion>
       </div>
     </div>
 
@@ -45,9 +43,9 @@
         ></textarea>
       </div>
       <div>
-        <button class="btn edit btn-sm" (click)="botonEditar(informacion)">
-          <i class="fa-solid fa-pen noPointers"></i>
-        </button>
+        <app-boton-edicion
+          (valor)="visibilidad($event, informacion)"
+        ></app-boton-edicion>
       </div>
     </div>
   </div>

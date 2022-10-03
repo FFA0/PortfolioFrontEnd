@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
-
 
 @Component({
   selector: 'app-acerca-de',
@@ -8,10 +7,10 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./acerca-de.component.css'],
 })
 export class AcercaDeComponent implements OnInit {
-  
 
-  botonEditar(id : any) {
-    id.hidden = !id.hidden
+
+  visibilidad(e : any, id : any){
+    id.hidden = e;
   }
   
   Acerca: any;

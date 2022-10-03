@@ -10,9 +10,9 @@ export class ProyectoComponent implements OnInit {
 
   proyectos: any;
 
-  editar(id: any, id2: any) {
-    id.hidden = !id.hidden;
-    id2.hidden = !id2.hidden;
+  visibilidad(e : any, id: any, id2: any) {
+    id.hidden = e;
+    id2.hidden = e;
   }
 
   agregar() {
@@ -27,8 +27,8 @@ export class ProyectoComponent implements OnInit {
 
   }
 
-  eliminar(e: any) {
-    e.target.parentElement.parentElement.parentElement.remove();
+  borrarNodo(e: any, id : any) {
+    id.parentElement.remove();
   }
 
   constructor(private datos: DatosService) { }

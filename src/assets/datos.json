@@ -21,5 +21,6 @@
             "Titulo":"Nombre del Proyecto",
             "Descripcion": "Descripcion del Proyecto"
         }
-    ]
+    ],
+    "Login" : true
 }
