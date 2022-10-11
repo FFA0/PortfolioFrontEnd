@@ -9,19 +9,26 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class EducacionComponent implements OnInit {
 
   edu: any;
+  botonEliminar : any = {"margin-top" : "-180px"}
 
   agregar() {
 
-    let array =
+    let nuevoEdu =
     {
       "Descripcion": "texto educacion",
       "Logo": ""
     };
-    this.edu.push(array)
+    this.edu.push(nuevoEdu)
   }
 
-  visibilidad(e : any, id : any) {
-    id.hidden = e;
+  editarTexto(id :any){
+    if(id.contentEditable == "false"){
+      id.contentEditable = "true";
+      id.style.backgroundColor = "rgb(92, 168, 255)"
+    } else {
+      id.contentEditable = "false";
+      id.style.backgroundColor = ""
+    }
   }
 
   borrarNodo(e: any, id : any) {

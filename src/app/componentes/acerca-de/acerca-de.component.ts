@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({
@@ -8,9 +8,13 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class AcercaDeComponent implements OnInit {
 
+  nombreTitulo : boolean = false;
+  informacion : boolean = false;
 
-  visibilidad(e : any, id : any){
-    id.hidden = e;
+  botonAcerca : any = {"margin-bottom" : "15px", "margin-right" : "5px"};
+  botonArchivo : any = {"margin-top" : "-70px", "margin-right" : "5px"};
+
+  visibilidad(){ 
   }
   
   Acerca: any;

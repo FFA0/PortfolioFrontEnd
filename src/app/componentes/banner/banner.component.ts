@@ -9,13 +9,14 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class BannerComponent implements OnInit {
 
   Banner: any;
+  botonArchivo = {"margin" : "10px"}
 
   constructor(private datos : DatosService) { }
 
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data=>{
-      this.Banner = data;
+      this.Banner = data.Banner;
     })
   }
 

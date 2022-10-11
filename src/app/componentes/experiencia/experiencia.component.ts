@@ -13,10 +13,16 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class ExperienciaComponent implements OnInit {
 
   experiencia: any;
+  botonEliminar : any = {"margin-top" : "-245px"}
 
-  //btn editar la descripcion
-  visibilidad(e : any, id: any) {
-    id.hidden = e;
+  editarTexto(id :any){
+    if(id.contentEditable == "false"){
+      id.contentEditable = "true";
+      id.style.backgroundColor = "rgb(92, 168, 255)"
+    } else {
+      id.contentEditable = "false";
+      id.style.backgroundColor = "";
+    }
   }
 
   //eliminar nodo
@@ -26,13 +32,13 @@ export class ExperienciaComponent implements OnInit {
 
   //btn para añadir el template
   agregar() {
-    let array =
+    let exp =
     {
       "Descripcion": "texto",
       "Logo": ""
     };
 
-    this.experiencia.push(array)
+    this.experiencia.push(exp)
   }
 
   constructor(private datos: DatosService) { }

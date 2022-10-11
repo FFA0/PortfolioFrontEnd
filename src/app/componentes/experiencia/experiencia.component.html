@@ -19,22 +19,22 @@
         </div>
         <div class="col-sm-10 col-md-8 col-lg-8 p-2 m-2">
           <div>
-            <p>{{ experiencia[i].Descripcion }}</p>
-            <textarea
-              class="container"
-              [(ngModel)]="experiencia[i].Descripcion"
-              hidden
-              #descripcion
-            ></textarea>
+            <p
+              #textoDescripcion
+              contenteditable="false"
+            >
+              {{ experiencia[i].Descripcion }}
+            </p>
           </div>
           <div class="mt-2">
             <app-boton-edicion
-              (valor)="visibilidad($event, descripcion)"
+              (emitir)="editarTexto(textoDescripcion)"
             ></app-boton-edicion>
           </div>
         </div>
       </div>
       <app-boton-eliminar
+        [estilos]="botonEliminar"
         (emitir)="borrarNodo($event, borrar)"
       ></app-boton-eliminar>
     </li>

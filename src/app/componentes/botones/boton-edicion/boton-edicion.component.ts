@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class BotonEdicionComponent implements OnInit {
 
-  @Output() valor = new EventEmitter<boolean>();
+  @Output() emitir = new EventEmitter<boolean>();
+  @Input() estilos : any;
 
   otroValor : boolean = true;
 
@@ -16,7 +17,7 @@ export class BotonEdicionComponent implements OnInit {
 
   cambiarValor(){
     this.otroValor = !this.otroValor;
-    this.valor.emit(this.otroValor);
+    this.emitir.emit(this.otroValor);
   }
 
   constructor(private datos : DatosService) { }

@@ -10,24 +10,33 @@ export class ProyectoComponent implements OnInit {
 
   proyectos: any;
 
-  visibilidad(e : any, id: any, id2: any) {
-    id.hidden = e;
-    id2.hidden = e;
+  editarTexto(id1 : any, id2 : any) {
+    if(id1.contentEditable == "false"){
+      id1.contentEditable = "true";
+      id2.contentEditable = "true";
+      id1.style.backgroundColor = "rgb(92, 168, 255)";
+      id2.style.backgroundColor = "rgb(92, 168, 255)";
+    } else {
+      id1.contentEditable = "false";
+      id2.contentEditable = "false";
+      id1.style.backgroundColor = "";
+      id2.style.backgroundColor = "";
+    }
   }
 
   agregar() {
 
-    let array =
+    let proyecto =
     {
       "Titulo": "Nombre Del Proyecto",
       "Descripcion": "Descripcion del Proyecto"
-    };
+    }
 
-    this.proyectos.push(array)
+    this.proyectos.push(proyecto)
 
   }
 
-  borrarNodo(e: any, id : any) {
+  borrarNodo(e: any, id: any) {
     id.parentElement.remove();
   }
 

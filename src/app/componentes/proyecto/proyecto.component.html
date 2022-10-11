@@ -1,33 +1,21 @@
 <div class="container border mt-2">
-  <div class="mt-3 text-center">Proyectos En Los Que Trabaje</div>
+  <div class="mt-3 text-center">Proyectos En Los Que Trabajé</div>
 
   <ul class="list-group">
     <li class="list-group-item mb-2" *ngFor="let proyecto of proyectos; index as i">
-      <div class="m-3 p-3 border" #borrar>
+      <div class="m-3 p-3" #borrar>
         <div>
-          <p class="text-center">{{ proyectos[i].Titulo }}</p>
-          <textarea
-            class="container"
-            [(ngModel)]="proyectos[i].Titulo"
-            hidden
-            #titulo
-          ></textarea>
+          <p #titulo contenteditable="false" class="text-center">{{ proyectos[i].Titulo }}</p>
         </div>
         <div>
-          <p>{{ proyectos[i].Descripcion }}</p>
-          <textarea
-            class="container"
-            [(ngModel)]="proyectos[i].Descripcion"
-            hidden
-            #descripcion
-          ></textarea>
+          <p #descripcion contenteditable="false">{{ proyectos[i].Descripcion }}</p>
         </div>
         <div class="p-3">
           <app-boton-eliminar
             (emitir)="borrarNodo($event, borrar)"
           ></app-boton-eliminar>
           <app-boton-edicion
-            (valor)="visibilidad($event, titulo, descripcion)"
+            (emitir)="editarTexto(titulo, descripcion)"
           ></app-boton-edicion>
         </div>
       </div>
@@ -35,3 +23,5 @@
   </ul>
   <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
 </div>
+
+

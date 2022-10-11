@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-boton-archivo',
@@ -8,9 +8,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class BotonArchivoComponent implements OnInit {
 
   @Output() emitir = new EventEmitter<any>();
+  @Input() estilos : any;
 
-
-  cambiar(){
+  cambiar() {
     this.emitir.emit();
   }
 
@@ -18,5 +18,4 @@ export class BotonArchivoComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

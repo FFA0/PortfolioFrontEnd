@@ -1,5 +1,25 @@
-<div class="container my-3 border">
-  <div class="row">
-    <div class="col">Hard and soft skills</div>
+<div class="container mt-2 border">
+  <div class="row p-2 text-center" >
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3 border" *ngFor="let a of conocimiento; index as i">
+      <div>
+        <img class="img-thumbnail mt-2" [src]="conocimiento.Logo" alt="logo" />
+        <input type="file" hidden [(ngModel)]="conocimiento.Logo" #inputLogo>
+        <app-boton-archivo (emitir)="inputLogo.click()"></app-boton-archivo>
+      </div>
+      <div>
+        {{ conocimiento[i].Descripcion }}
+        <textarea
+          class="container"
+          hidden
+          [(ngModel)]="conocimiento[i].Descripcion"
+          #descripcion
+        ></textarea>
+      </div>
+      <app-boton-edicion
+        (emitir)="editar($event, descripcion)"
+      ></app-boton-edicion>
+    </div>
+    <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
   </div>
+  
 </div>

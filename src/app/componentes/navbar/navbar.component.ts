@@ -1,4 +1,4 @@
-import { Component,OnInit} from '@angular/core';
+import { Component,EventEmitter,OnInit, Output} from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({
@@ -8,10 +8,12 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class NavbarComponent implements OnInit {
 
+
+  modoEditar(){
+  }
  
   constructor(private datos : DatosService) { }
 
   ngOnInit(): void {
   }
-  
 }

@@ -1,9 +1,8 @@
 <div class="container border mt-3">
   <div class="text-center">Educación</div>
-
   <ul class="list-group">
     <li class="list-group-item mb-2" *ngFor="let educacion of edu; index as i">
-      <div class="row border m-5 p-2" #borrar>
+      <div class="row m-5 p-2" #borrar>
         <div class="col-sm-0 col-md-4 col-lg-3">
           <img [src]="edu[i].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
           <app-boton-archivo (emitir)="cambiarLogo.click()"></app-boton-archivo>
@@ -11,23 +10,21 @@
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8">
           <div>
-            <p>{{ edu[i].Descripcion }}</p>
-            <textarea
-              class="container"
-              hidden
+            <p
               #educacionTexto
-              [(ngModel)]="edu[i].Descripcion"
-            ></textarea>
+              contenteditable="false"
+            >
+              {{ edu[i].Descripcion }}
+            </p>
           </div>
-          <div>
-            <app-boton-eliminar
-              (emitir)="borrarNodo($event, borrar)"
-            ></app-boton-eliminar>
-            <app-boton-edicion
-              (valor)="visibilidad($event, educacionTexto)"
-            ></app-boton-edicion>
-          </div>
+          <app-boton-edicion
+            (emitir)="editarTexto(educacionTexto)"
+          ></app-boton-edicion>
         </div>
+        <app-boton-eliminar
+          [estilos]="botonEliminar"
+          (emitir)="borrarNodo($event, borrar)"
+        ></app-boton-eliminar>
       </div>
     </li>
   </ul>
