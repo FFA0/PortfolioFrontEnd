@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({

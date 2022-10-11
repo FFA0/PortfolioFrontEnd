@@ -15,12 +15,12 @@ export class SkillsComponent implements OnInit {
   }
 
   agregar(){
-    let array = {
+    let skill = {
       "logo" : "",
       "Descripcion" : "texto"
   }
 
-  this.conocimiento.push(array)
+  this.conocimiento.push(skill)
 
   }
 
