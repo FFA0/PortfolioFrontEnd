@@ -13,7 +13,7 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class ExperienciaComponent implements OnInit {
 
   experiencia: any;
-  botonEliminar : any = {"margin-top" : "-245px"}
+  // botonEliminar : any = {"margin-right" : "-6px"}
 
   editarTexto(id :any){
     if(id.contentEditable == "false"){
@@ -25,12 +25,10 @@ export class ExperienciaComponent implements OnInit {
     }
   }
 
-  //eliminar nodo
   borrarNodo(e: any, id : any) {
     id.parentElement.remove();
   }
 
-  //btn para añadir el template
   agregar() {
     let exp =
     {

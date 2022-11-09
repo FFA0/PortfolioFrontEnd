@@ -1,8 +1,8 @@
-<div class="container p-4 mt-3 border mx-auto">
+<div class="container p-4 mt-3 border mx-auto divColor">
   <div class="row">
     <!-- foto, nombre y titulo-->
-    <div class="col-sm-0 col-md-4 col-lg-3 border text-center">
-      <div class="row img-fluid">
+    <div class="col-sm-0 col-md-4 col-lg-3 border">
+      <div class="row">
         <img
           src="{{ Acerca.Foto }}"
           class="mx-auto foto img-thumbnail rounded-circle p-0"
@@ -12,7 +12,7 @@
       <input type="file" hidden #fotoInput [(ngModel)]="Acerca.Foto">
       <app-boton-archivo [estilos]="botonArchivo" (emitir)="fotoInput.click()">
       </app-boton-archivo>
-      <div>
+      <div class="text-center">
         <p
           [ngClass]="{ editar: nombreTitulo }"
           [contentEditable]="nombreTitulo"
@@ -27,7 +27,7 @@
         </p>
       </div>
       <div>
-        <app-boton-edicion
+        <app-boton-edicion          
           [estilos]="botonAcerca"
           (emitir)="nombreTitulo = !nombreTitulo"
         ></app-boton-edicion>
@@ -35,19 +35,13 @@
     </div>
 
     <!-- Acerca de -->
-    <div class="col-sm-12 col-md-8 col-lg-9 border">
-      <div style="text-align: center">Acerca de</div>
-      <div>
-        <p
-          [ngClass]="{ editar: informacion }"
-          [contentEditable]="informacion"
-
-        >
-          {{ Acerca.Informacion }}
-        </p>
+    <div class="col-sm-12 col-md-8 col-lg-9 border mt-1 mt-md-0">
+      <div class="text-center">Sobre mí</div>
+      <div [ngClass]="{ editar: informacion }" [contentEditable]="informacion">
+        {{ Acerca.Informacion }}
       </div>
-      <div>
-        <app-boton-edicion
+      <div class="mt-1"
+        ><app-boton-edicion
           (emitir)="informacion = !informacion"
         ></app-boton-edicion>
       </div>

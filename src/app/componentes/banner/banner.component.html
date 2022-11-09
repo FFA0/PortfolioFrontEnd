@@ -1,9 +1,14 @@
-<div class="container border p-3 mt-3">
+<div class="container border p-3 mt-3 divColor">
   <div class="border text-center">
-    <img [src]="Banner" class="imagenBanner img-fluid" alt="Banner" />
-
-    <app-boton-archivo [estilos]="botonArchivo" (emitir)="nuevoBanner.click()"></app-boton-archivo>
-
+    <img 
+      [src]="Banner" 
+      class="imagenBanner img-fluid" 
+      alt="Banner" 
+    />    
+    <app-boton-archivo
+      [estilos]="botonArchivo"     
+      (emitir)="nuevoBanner.click()">
+     </app-boton-archivo>
     <input
       type="file"
       style="display: none"

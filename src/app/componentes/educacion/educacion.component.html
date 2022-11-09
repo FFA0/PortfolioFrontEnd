@@ -1,19 +1,16 @@
-<div class="container border mt-3">
-  <div class="text-center">Educación</div>
+<div class="container border mt-3 divColor">
+  <div class="p-2">Educación:</div>
   <ul class="list-group">
     <li class="list-group-item mb-2" *ngFor="let educacion of edu; index as i">
-      <div class="row m-5 p-2" #borrar>
-        <div class="col-sm-0 col-md-4 col-lg-3">
+      <div class="row" #borrar>
+        <div class="col-sm-0 col-md-4 col-lg-3 text-center">
           <img [src]="edu[i].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
           <app-boton-archivo (emitir)="cambiarLogo.click()"></app-boton-archivo>
           <input type="file" hidden #cambiarLogo [(ngModel)]="edu[i].Logo" />
         </div>
-        <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
           <div>
-            <p
-              #educacionTexto
-              contenteditable="false"
-            >
+            <p #educacionTexto contenteditable="false">
               {{ edu[i].Descripcion }}
             </p>
           </div>
@@ -21,8 +18,9 @@
             (emitir)="editarTexto(educacionTexto)"
           ></app-boton-edicion>
         </div>
+      </div>
+      <div class="p-2">
         <app-boton-eliminar
-          [estilos]="botonEliminar"
           (emitir)="borrarNodo($event, borrar)"
         ></app-boton-eliminar>
       </div>

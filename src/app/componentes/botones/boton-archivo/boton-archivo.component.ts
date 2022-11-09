@@ -9,7 +9,7 @@ export class BotonArchivoComponent implements OnInit {
 
   @Output() emitir = new EventEmitter<any>();
   @Input() estilos : any;
-
+  
   cambiar() {
     this.emitir.emit();
   }

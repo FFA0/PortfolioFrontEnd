@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   modoEditar(){
   }
  
-  constructor(private datos : DatosService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

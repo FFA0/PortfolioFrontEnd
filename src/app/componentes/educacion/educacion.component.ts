@@ -8,8 +8,7 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class EducacionComponent implements OnInit {
 
-  edu: any;
-  botonEliminar : any = {"margin-top" : "-180px"}
+  edu: any;  
 
   agregar() {
 

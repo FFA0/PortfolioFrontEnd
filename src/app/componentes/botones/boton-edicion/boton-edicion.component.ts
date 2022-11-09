@@ -8,7 +8,7 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class BotonEdicionComponent implements OnInit {
 
-  @Output() emitir = new EventEmitter<boolean>();
+  @Output() emitir = new EventEmitter<boolean>();  
   @Input() estilos : any;
 
   otroValor : boolean = true;

@@ -1,4 +1,15 @@
-.edit {
+/*Color del body*/
+body{
+  background-color: aliceblue;
+}
+
+/*Color para divs*/
+.divColor{
+  background-color: white;
+}
+
+/*Para los botones de edición*/
+.botones {
   background-color: rgb(0, 135, 245);
   color: white;
   border-radius: 50%;
@@ -8,16 +19,7 @@
 }
 
 
-.noPointers{
-  pointer-events: none;
-}
-
-.añadir {
-  position: relative;
-  margin-top: -210px;
-
-}
-
+/**/
 .Logo{
   line-height: 180px;
 }
@@ -25,3 +27,4 @@
 .editar{
   background-color: rgb(92, 168, 255);
 }
+

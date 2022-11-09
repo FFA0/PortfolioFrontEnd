@@ -9,8 +9,7 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class BotonEliminarComponent implements OnInit {
 
   @Output() emitir = new EventEmitter<any>();
-  @Input() estilos : any;
-
+  
   cambiar() {
     this.emitir.emit()
   }

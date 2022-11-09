@@ -1,9 +1,12 @@
-<div class="container border p-2 mt-3">
-  <div class="text-center">Experiencia Laboral</div>
+<div class="container border p-2 mt-3 divColor">
+  <div class="p-2">Experiencia Laboral:</div>
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let exp of experiencia; index as i">
-      <div class="row p-2 m-5 border" #borrar>
-        <div class="col-sm-2 col-md-4 col-lg-3">
+    <li
+      class="list-group-item mb-2"
+      *ngFor="let exp of experiencia; index as i"
+    >
+      <div class="row" #borrar>
+        <div class="col-sm-0 col-md-4 col-lg-3 text-center">
           <img
             [src]="experiencia[i].Logo"
             alt="Logo"
@@ -17,26 +20,22 @@
             #inputLogo
           />
         </div>
-        <div class="col-sm-10 col-md-8 col-lg-8 p-2 m-2">
+        <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
           <div>
-            <p
-              #textoDescripcion
-              contenteditable="false"
-            >
+            <p #textoDescripcion contenteditable="false">
               {{ experiencia[i].Descripcion }}
             </p>
           </div>
-          <div class="mt-2">
-            <app-boton-edicion
-              (emitir)="editarTexto(textoDescripcion)"
-            ></app-boton-edicion>
-          </div>
+          <app-boton-edicion
+            (emitir)="editarTexto(textoDescripcion)"
+          ></app-boton-edicion>
         </div>
       </div>
-      <app-boton-eliminar
-        [estilos]="botonEliminar"
-        (emitir)="borrarNodo($event, borrar)"
-      ></app-boton-eliminar>
+      <div class="p-2">
+        <app-boton-eliminar
+          (emitir)="borrarNodo($event, borrar)"
+        ></app-boton-eliminar>
+      </div>
     </li>
   </ul>
   <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>

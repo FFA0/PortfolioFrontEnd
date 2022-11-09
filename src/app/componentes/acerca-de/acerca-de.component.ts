@@ -7,17 +7,13 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./acerca-de.component.css'],
 })
 export class AcercaDeComponent implements OnInit {
-
+  
+  Acerca: any;
   nombreTitulo : boolean = false;
   informacion : boolean = false;
 
-  botonAcerca : any = {"margin-bottom" : "15px", "margin-right" : "5px"};
-  botonArchivo : any = {"margin-top" : "-70px", "margin-right" : "5px"};
-
-  visibilidad(){ 
-  }
-  
-  Acerca: any;
+  botonAcerca : any = {"margin-bottom":"5px", "margin-right":"-5px"};
+  botonArchivo : any = {"margin-top" : "-70px","margin-right":"-5px"};
 
   constructor(private datos : DatosService) {}
 

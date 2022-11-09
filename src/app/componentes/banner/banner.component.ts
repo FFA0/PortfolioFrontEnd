@@ -9,7 +9,7 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class BannerComponent implements OnInit {
 
   Banner: any;
-  botonArchivo = {"margin" : "10px"}
+  botonArchivo = {"margin-top" : "5px", "margin-left":"-35px", "position" : "absolute"}
 
   constructor(private datos : DatosService) { }
 

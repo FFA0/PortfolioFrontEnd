@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DatosService {
-
   
-
   constructor(private http : HttpClient) { }
     
   datosPortfolio = "./assets/datos.json"
