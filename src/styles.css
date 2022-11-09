@@ -19,11 +19,12 @@ body{
 }
 
 
-/**/
+/*para el alt del logo*/
 .Logo{
   line-height: 180px;
 }
 
+/*cambiar color para la edición del texto*/
 .editar{
   background-color: rgb(212, 212, 212);
 }

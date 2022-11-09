@@ -14,8 +14,8 @@ export class ProyectoComponent implements OnInit {
     if(id1.contentEditable == "false"){
       id1.contentEditable = "true";
       id2.contentEditable = "true";
-      id1.style.backgroundColor = "rgb(92, 168, 255)";
-      id2.style.backgroundColor = "rgb(92, 168, 255)";
+      id1.style.backgroundColor = "rgb(212, 212, 212)";
+      id2.style.backgroundColor = "rgb(212, 212, 212)";
     } else {
       id1.contentEditable = "false";
       id2.contentEditable = "false";
@@ -31,9 +31,7 @@ export class ProyectoComponent implements OnInit {
       "Titulo": "Nombre Del Proyecto",
       "Descripcion": "Descripcion del Proyecto"
     }
-
     this.proyectos.push(proyecto)
-
   }
 
   borrarNodo(e: any, id: any) {

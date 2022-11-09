@@ -11,14 +11,14 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./experiencia.component.css'],
 })
 export class ExperienciaComponent implements OnInit {
-
+  
+  //info que se obtiene del json
   experiencia: any;
-  // botonEliminar : any = {"margin-right" : "-6px"}
-
+  
   editarTexto(id :any){
     if(id.contentEditable == "false"){
       id.contentEditable = "true";
-      id.style.backgroundColor = "rgb(92, 168, 255)"
+      id.style.backgroundColor = "rgb(212, 212, 212)"
     } else {
       id.contentEditable = "false";
       id.style.backgroundColor = "";
@@ -29,13 +29,13 @@ export class ExperienciaComponent implements OnInit {
     id.parentElement.remove();
   }
 
+  //añadir info al json
   agregar() {
     let exp =
     {
       "Descripcion": "texto",
       "Logo": ""
-    };
-
+    }
     this.experiencia.push(exp)
   }
 

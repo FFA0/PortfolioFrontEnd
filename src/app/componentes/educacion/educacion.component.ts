@@ -7,11 +7,11 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./educacion.component.css']
 })
 export class EducacionComponent implements OnInit {
-
+  //info que se obtiene del json
   edu: any;  
 
+  //añadir info al json
   agregar() {
-
     let nuevoEdu =
     {
       "Descripcion": "texto educacion",
@@ -23,7 +23,7 @@ export class EducacionComponent implements OnInit {
   editarTexto(id :any){
     if(id.contentEditable == "false"){
       id.contentEditable = "true";
-      id.style.backgroundColor = "rgb(92, 168, 255)"
+      id.style.backgroundColor = "rgb(212, 212, 212)"
     } else {
       id.contentEditable = "false";
       id.style.backgroundColor = ""
