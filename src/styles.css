@@ -1,7 +1,8 @@
 /*Color del body*/
 body{
   background-color: aliceblue;
-}
+  font-family: 'Roboto Mono', monospace;
+  }
 
 /*Color para divs*/
 .divColor{
