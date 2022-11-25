@@ -6,4 +6,17 @@
     line-height: 150px;    
   }
 
+  #botTitulo {  
+    margin-bottom: 5px;
+    margin-right: -7px;
+  }
+  
+  #botNombre {
+    margin-top: -70px;
+    margin-right: -7px;
+  }
 
+  #botInfo{    
+    margin-top: -15px;
+    margin-right: -20px;
+  }

@@ -4,32 +4,32 @@
   </div>
   <ul class="list-group">
     <li
-      class="list-group-item"
-      *ngFor="let proyecto of proyectos; index as i"
+      class="list-group-item mb-3"
+      *ngFor="let proyecto of proyectos;"
     >
       <div #borrar>
         <div>
+          <button class="btn btn-sm boton botones" id="botProyecto" [hidden]="log.editar" (click)="editarTexto(titulo, descripcion)">
+            <i class="fa-solid fa-pen noPointers"></i>
+          </button>  
           <p #titulo contenteditable="false" class="text-center">
-            {{ proyectos[i].Titulo }}
+            {{ proyecto.Titulo }}
           </p>
         </div>
         <div class="border p-2">
           <p #descripcion contenteditable="false">
-            {{ proyectos[i].Descripcion }}
+            {{ proyecto.Descripcion }}
           </p>
-        </div>
-        <div class="mt-1">
-          <app-boton-eliminar
-            (emitir)="borrarNodo($event, borrar)"
-          ></app-boton-eliminar>
-        </div>
-        <div class="mt-1 pe-5">
-          <app-boton-edicion
-            (emitir)="editarTexto(titulo, descripcion)"
-          ></app-boton-edicion>
-        </div>                 
+        </div>        
+          <button class="btn botones btn-sm" id="botEliminar" [hidden]="log.editar" (click)="eliminar($event,borrar)">
+            <i class="fa-solid fa-trash"></i>
+          </button>          
       </div>
     </li>
   </ul>
-  <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
+  <div class="d-grid gap-2 col-6 mx-auto mt-2 mb-2" (click)="agregar()">
+    <button class="btn btn-outline-primary" [hidden]="log.editar" >
+        <i class="fa-solid fa-plus noPointers"></i>
+      </button>
+    </div>
 </div>

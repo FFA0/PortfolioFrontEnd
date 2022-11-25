@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
+import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-banner',
@@ -8,17 +9,16 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class BannerComponent implements OnInit {
   //info que se obtiene del json
-  Banner: any;
+  banner: any;
+  log : any;
 
-  //estilos para botones
-  botonArchivo = {"margin-top" : "5px", "margin-left":"-35px", "position" : "absolute"}
-
-  constructor(private datos : DatosService) { }
+  constructor(private datos : DatosService, private login : LoginService) { }
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data=>{
-      this.Banner = data.Banner;
+      this.banner = data.Banner;
     })
+    this.log = this.login;
   }
 
 }

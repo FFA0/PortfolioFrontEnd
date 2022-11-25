@@ -21,7 +21,10 @@ export class SkillsComponent implements OnInit {
   }
 
   this.conocimiento.push(skill)
+  }
 
+  eliminar(e: any, id: any) {
+    id.parentElement.remove();
   }
 
   constructor(private datos : DatosService) { }

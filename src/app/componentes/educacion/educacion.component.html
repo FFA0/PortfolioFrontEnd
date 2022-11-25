@@ -1,30 +1,36 @@
 <div class="container border mt-3 divColor">
   <div class="p-2">Educación:</div>
   <ul class="list-group">
-    <li class="list-group-item mb-2" *ngFor="let educacion of edu; index as i">
+    <li class="list-group-item mb-2" *ngFor="let edu of educacion">
       <div class="row" #borrar>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
-          <img [src]="edu[i].Logo" alt="Logo" class="p-0 img-thumbnail Logo" />
-          <app-boton-archivo (emitir)="cambiarLogo.click()"></app-boton-archivo>
-          <input type="file" hidden #cambiarLogo [(ngModel)]="edu[i].Logo" />
+          <img [src]="edu.Logo" alt="Logo" class="p-0 img-thumbnail Logo" />          
+          <button class="btn btn-sm botones" id="botLogo" [hidden]="log.editar" (click)="cambiarLogo.click()">
+            <i class="fa-solid fa-file"></i>
+          </button>
+          <input type="file" hidden #cambiarLogo [(ngModel)]="edu.Logo" />
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
+          <button class="btn btn-sm boton botones" id="botEducacion" [hidden]="log.editar" (click)="editarTexto(educacionTexto)">
+            <i class="fa-solid fa-pen noPointers"></i>
+          </button>
           <div>
             <p #educacionTexto contenteditable="false">
-              {{ edu[i].Descripcion }}
+              {{ edu.Descripcion }}
             </p>
-          </div>
-          <app-boton-edicion
-            (emitir)="editarTexto(educacionTexto)"
-          ></app-boton-edicion>
+          </div>          
         </div>
       </div>
       <div class="p-2">
-        <app-boton-eliminar
-          (emitir)="borrarNodo($event, borrar)"
-        ></app-boton-eliminar>
+        <button class="btn botones btn-sm" [hidden]="log.editar" (click)="eliminar($event, borrar)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
       </div>
     </li>
   </ul>
-  <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
+  <div class="d-grid gap-2 col-6 mx-auto" [hidden]="log.editar" (click)="agregar()">
+    <button class="btn btn-outline-primary">
+      <i class="fa-solid fa-plus noPointers"></i>
+    </button>
+  </div>
 </div>

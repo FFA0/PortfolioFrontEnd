@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
+import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-proyecto',
@@ -9,18 +10,18 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class ProyectoComponent implements OnInit {
 
   proyectos: any;
+  log : any;
 
   editarTexto(id1 : any, id2 : any) {
-    if(id1.contentEditable == "false"){
-      id1.contentEditable = "true";
-      id2.contentEditable = "true";
-      id1.style.backgroundColor = "rgb(212, 212, 212)";
-      id2.style.backgroundColor = "rgb(212, 212, 212)";
-    } else {
-      id1.contentEditable = "false";
-      id2.contentEditable = "false";
-      id1.style.backgroundColor = "";
-      id2.style.backgroundColor = "";
+    id1.contentEditable = !id1.isContentEditable;
+    id2.contentEditable = !id2.isContentEditable;
+    if(id1.contentEditable == "true"){    
+       id1.style.backgroundColor = "rgb(212, 212, 212)";
+       id2.style.backgroundColor = "rgb(212, 212, 212)";
+     } 
+     else {       
+       id1.style.backgroundColor = "";
+       id2.style.backgroundColor = "";
     }
   }
 
@@ -34,16 +35,17 @@ export class ProyectoComponent implements OnInit {
     this.proyectos.push(proyecto)
   }
 
-  borrarNodo(e: any, id: any) {
+  eliminar(e: any, id: any) {
     id.parentElement.remove();
   }
 
-  constructor(private datos: DatosService) { }
+  constructor(private datos: DatosService, private login : LoginService) { }
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data => {
       this.proyectos = data.Proyectos;
     })
+    this.log = this.login;
   }
 
 }

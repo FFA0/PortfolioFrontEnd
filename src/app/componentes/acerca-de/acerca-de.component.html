@@ -4,47 +4,48 @@
     <div class="col-sm-0 col-md-4 col-lg-3 border">
       <div class="row">
         <img
-          src="{{ Acerca.Foto }}"
+          src="{{ acerca.Foto }}"
           class="mx-auto foto img-thumbnail rounded-circle p-0"
           alt="Foto"
         />
       </div>
-      <input type="file" hidden #fotoInput [(ngModel)]="Acerca.Foto">
-      <app-boton-archivo [estilos]="botonArchivo" (emitir)="fotoInput.click()">
-      </app-boton-archivo>
+      <input type="file" hidden #fotoInput [(ngModel)]="acerca.Foto">
+      
+      <button class="btn btn-sm botones" id="botNombre" [hidden]="log.editar" (click)="fotoInput.click()"> 
+        <i class="fa-solid fa-file"></i>
+      </button>
+
       <div class="text-center">
         <p
           [ngClass]="{ editar: nombreTitulo }"
           [contentEditable]="nombreTitulo"
         >
-          {{ Acerca.Nombre }}
+          {{ acerca.Nombre }}
         </p>
         <p
           [ngClass]="{ editar: nombreTitulo }"
           [contentEditable]="nombreTitulo"
         >
-          {{ Acerca.Titulo }}
+          {{ acerca.Titulo }}
         </p>
       </div>
-      <div>
-        <app-boton-edicion          
-          [estilos]="botonAcerca"
-          (emitir)="nombreTitulo = !nombreTitulo"
-        ></app-boton-edicion>
+      <div>        
+        <button class="btn btn-sm boton botones" id="botTitulo" [hidden]="log.editar" (click)="nombreTitulo = !nombreTitulo">
+          <i class="fa-solid fa-pen noPointers"></i>
+        </button>
       </div>
     </div>
 
     <!-- Acerca de -->
-    <div class="col-sm-12 col-md-8 col-lg-9 border mt-1 mt-md-0">
-      <div class="text-center">Sobre mí</div>
+    <div class="col-sm-12 col-md-8 col-lg-9 border mt-3 mt-md-0">
+      <div class="text-center">Sobre mí
+        <button class="btn btn-sm boton botones" id="botInfo" [hidden]="log.editar" (click)="informacion = !informacion">
+          <i class="fa-solid fa-pen noPointers"></i>
+        </button>
+      </div>
       <div [ngClass]="{ editar: informacion }" [contentEditable]="informacion">
-        {{ Acerca.Informacion }}
-      </div>
-      <div class="mt-1"
-        ><app-boton-edicion
-          (emitir)="informacion = !informacion"
-        ></app-boton-edicion>
-      </div>
+        {{ acerca.Informacion }}
+      </div>      
     </div>
   </div>
 </div>

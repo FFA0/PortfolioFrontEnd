@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
+import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-acerca-de',
@@ -9,20 +10,18 @@ import { DatosService } from 'src/app/servicio/datos.service';
 export class AcercaDeComponent implements OnInit {
   
   //info que se obtiene del json
-  Acerca: any;
+  acerca: any;
+  log : any;  
   //boolean para edición
   nombreTitulo : boolean = false;
   informacion : boolean = false;
-
-  //estilos para botones
-  botonAcerca : any = {"margin-bottom":"5px", "margin-right":"-5px"};
-  botonArchivo : any = {"margin-top" : "-70px","margin-right":"-5px"};
-
-  constructor(private datos : DatosService) {}
+  
+  constructor(private datos : DatosService, private login : LoginService) {}
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data=>{
-      this.Acerca = data;
+      this.acerca = data;
     })
+    this.log = this.login; 
   }
 }

@@ -17,11 +17,8 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistrarComponent } from './componentes/registrar/registrar.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { BotonEdicionComponent } from './componentes/botones/boton-edicion/boton-edicion.component';
-import { BotonArchivoComponent } from './componentes/botones/boton-archivo/boton-archivo.component';
-import { BotonEliminarComponent } from './componentes/botones/boton-eliminar/boton-eliminar.component';
-import { BotonAgregarComponent } from './componentes/botones/boton-agregar/boton-agregar.component';
-
+import { DatosService } from './servicio/datos.service';
+import { LoginService } from './servicio/login.service';
 
 
 let routes: Routes = [
@@ -44,11 +41,7 @@ let routes: Routes = [
     FooterComponent,
     LoginComponent,
     RegistrarComponent,
-    NavbarComponent,
-    BotonEdicionComponent,
-    BotonArchivoComponent,
-    BotonEliminarComponent,
-    BotonAgregarComponent,
+    NavbarComponent,    
   ],
   imports: [
     BrowserModule,
@@ -57,7 +50,7 @@ let routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,18 +1,18 @@
 <div class="container border p-3 mt-3 divColor">
   <div class="border text-center">
     <img 
-      [src]="Banner" 
+      src="{{banner}}" 
       class="imagenBanner img-fluid" 
       alt="Banner" 
     />    
-    <app-boton-archivo
-      [estilos]="botonArchivo"     
-      (emitir)="nuevoBanner.click()">
-     </app-boton-archivo>
+    <button id="botonBanner" class="btn btn-sm botones" [hidden]="log.editar" (click)="nuevoBanner.click()">
+      <i class="fa-solid fa-file"></i>
+    </button>
+
     <input
       type="file"
       style="display: none"
-      [(ngModel)]="Banner"
+      [(ngModel)]="banner"
       #nuevoBanner
     />
   </div>

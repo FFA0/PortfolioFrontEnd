@@ -1,25 +1,33 @@
-<div class="container mt-2 border divColor">
+<!-- <div class="container mt-2 border divColor">
   <div class="row p-2 text-center" >
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3 border" *ngFor="let a of conocimiento; index as i">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3 border" *ngFor="let cono of conocimiento;">
       <div>
-        <img class="img-thumbnail mt-2" [src]="conocimiento.Logo" alt="logo" />
-        <input type="file" hidden [(ngModel)]="conocimiento.Logo" #inputLogo>
-        <app-boton-archivo (emitir)="inputLogo.click()"></app-boton-archivo>
+        <img class="img-thumbnail mt-2" [src]="cono.Logo" alt="logo" />
+        <input type="file" hidden [(ngModel)]="cono.Logo" #inputLogo>
+        <button class="btn btn-sm botones">
+          <i class="fa-solid fa-file"></i>
+      </button>
       </div>
       <div>
-        {{ conocimiento[i].Descripcion }}
+        {{ cono.Descripcion }}
         <textarea
           class="container"
           hidden
-          [(ngModel)]="conocimiento[i].Descripcion"
+          [(ngModel)]="cono.Descripcion"
           #descripcion
         ></textarea>
       </div>
-      <app-boton-edicion
-        (emitir)="editar($event, descripcion)"
-      ></app-boton-edicion>
+      <button class="btn btn-sm boton botones">
+        <i class="fa-solid fa-pen noPointers"></i>
+      </button>
+      <button class="btn botones btn-sm">
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
-    <app-boton-agregar (emitir)="agregar()"></app-boton-agregar>
-  </div>
-  
-</div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-outline-primary" (click)="agregar()">
+          <i class="fa-solid fa-plus noPointers"></i>
+        </button>
+      </div>
+  </div>  
+</div> -->

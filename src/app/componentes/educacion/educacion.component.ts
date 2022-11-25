@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
+import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-educacion',
@@ -8,7 +9,8 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class EducacionComponent implements OnInit {
   //info que se obtiene del json
-  edu: any;  
+  educacion: any;
+  log : any;  
 
   //añadir info al json
   agregar() {
@@ -17,31 +19,30 @@ export class EducacionComponent implements OnInit {
       "Descripcion": "texto educacion",
       "Logo": ""
     };
-    this.edu.push(nuevoEdu)
+    this.educacion.push(nuevoEdu)
   }
 
   editarTexto(id :any){
-    if(id.contentEditable == "false"){
-      id.contentEditable = "true";
+    id.contentEditable = !id.isContentEditable;
+    if(id.contentEditable == "true"){      
       id.style.backgroundColor = "rgb(212, 212, 212)"
-    } else {
-      id.contentEditable = "false";
+    } else {      
       id.style.backgroundColor = ""
     }
   }
 
-  borrarNodo(e: any, id : any) {
+  eliminar(e: any, id : any) {
     id.parentElement.remove();
   }
 
 
-  constructor(private datos: DatosService) { }
+  constructor(private datos: DatosService, private login : LoginService) { }
 
   ngOnInit(): void {
     this.datos.obtenerDatos().subscribe(data => {
-      this.edu = data.Educacion;
+      this.educacion = data.Educacion;
     })
-
+    this.log = this.login;
   }
 
 }
