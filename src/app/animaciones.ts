@@ -7,13 +7,13 @@ import {
     group,
 } from "@angular/animations"
 
-export let slide =
+export let deslizar =
     trigger("routeAnimations", [
-        transition("inicio => login", slideTo("left")),
-        transition("login => inicio", slideTo("right")),
+        transition("inicio => login", deslizarhacia("left")),
+        transition("login => inicio", deslizarhacia("right")),
     ])
 
-function slideTo(direcction: string) {
+function deslizarhacia(direcction: string) {
     let optional = { optional: true };
     return [
         style({ position: "relative" }),

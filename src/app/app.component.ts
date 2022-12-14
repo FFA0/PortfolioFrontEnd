@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ChildrenOutletContexts } from '@angular/router';
-import { slide } from './animaciones';
+import { deslizar } from './animaciones';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [ slide ]
+  animations: [ deslizar ]
 })
 export class AppComponent {
   title = 'PortFolioWeb';
