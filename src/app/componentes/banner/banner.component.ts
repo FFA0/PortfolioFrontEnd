@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 import { LoginService } from 'src/app/servicio/login.service';
 
+
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.css']
+
 })
 export class BannerComponent implements OnInit {
   //info que se obtiene del json

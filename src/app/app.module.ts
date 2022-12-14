@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,18 +15,11 @@ import { SkillsComponent } from './componentes/skills/skills.component';
 import { ProyectoComponent } from './componentes/proyecto/proyecto.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { RegistrarComponent } from './componentes/registrar/registrar.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { DatosService } from './servicio/datos.service';
 import { LoginService } from './servicio/login.service';
+import { ImagenDefaultDirective } from './imagen-default.directive';
+import { PageNotFoundComponent } from './componentes/page-not-found/page-not-found.component';
 
-
-let routes: Routes = [
-  { path: "", redirectTo: "/inicio", pathMatch: "full" },
-  { path: "inicio", component: BannerComponent },
-  { path: "login", component: LoginComponent },
-  { path: "registrar", component: RegistrarComponent },
-]
 
 @NgModule({
   declarations: [
@@ -40,15 +33,16 @@ let routes: Routes = [
     ProyectoComponent,
     FooterComponent,
     LoginComponent,
-    RegistrarComponent,
-    NavbarComponent,    
+    NavbarComponent,
+    ImagenDefaultDirective,
+    PageNotFoundComponent,    
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,    
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,    
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

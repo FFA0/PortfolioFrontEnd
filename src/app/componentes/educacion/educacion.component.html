@@ -4,7 +4,7 @@
     <li class="list-group-item mb-2" *ngFor="let edu of educacion">
       <div class="row" #borrar>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
-          <img [src]="edu.Logo" alt="Logo" class="p-0 img-thumbnail Logo" />          
+          <img appImagenDefault [src]="edu.Logo" alt="Logo" class="p-0 img-thumbnail Logo" />          
           <button class="btn btn-sm botones" id="botLogo" [hidden]="log.editar" (click)="cambiarLogo.click()">
             <i class="fa-solid fa-file"></i>
           </button>
@@ -28,8 +28,8 @@
       </div>
     </li>
   </ul>
-  <div class="d-grid gap-2 col-6 mx-auto" [hidden]="log.editar" (click)="agregar()">
-    <button class="btn btn-outline-primary">
+  <div class="d-grid gap-2 col-6 mx-auto" (click)="agregar()">
+    <button class="btn btn-outline-primary" [hidden]="log.editar">
       <i class="fa-solid fa-plus noPointers"></i>
     </button>
   </div>

@@ -8,8 +8,7 @@ export class LoginService {
   editar : boolean = true;
   
   modoEditar(){
-    this.editar = !this.editar;
-    console.log(this.editar);    
+    this.editar = !this.editar;      
   }
 
   constructor() { }

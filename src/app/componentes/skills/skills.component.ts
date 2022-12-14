@@ -7,32 +7,41 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
-
-  conocimiento : any;
-
-  editar(e : any, id : any){
-    id.hidden = !id.hidden
+  
+  porfolioSkills : any;   
+  
+  cambiarPorcentaje(valor: string){
+    
+    
+    
+    
+    // if(valor != ""){
+    //   this.porcentaje =  (parseInt(valor) * 3.6);
+    // }    
+    // else{
+    //   this.porcentaje = 0;
+    // }
   }
 
-  agregar(){
-    let skill = {
-      "logo" : "",
-      "Descripcion" : "texto"
+  agregar() {
+    let nuevoSkill =
+    {
+      "nombre": "nombre",
+      "valor": 0
+    };
+    this.porfolioSkills.push(nuevoSkill)
   }
 
-  this.conocimiento.push(skill)
-  }
-
-  eliminar(e: any, id: any) {
-    id.parentElement.remove();
+  eliminar(e : any) {
+    e.parentElement.remove();    
   }
 
   constructor(private datos : DatosService) { }
 
   ngOnInit(): void {
-  this.datos.obtenerDatos().subscribe(datos =>{
-    this.conocimiento = datos.Conocimientos
-  })
+    this.datos.obtenerDatos().subscribe((data)=>{
+      this.porfolioSkills = data.Skill;
+    })
   }
 
 }
