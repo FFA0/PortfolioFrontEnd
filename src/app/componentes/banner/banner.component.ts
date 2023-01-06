@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonaDto } from 'src/app/obj/PersonaDto';
 import { DatosService } from 'src/app/servicio/datos.service';
-import { LoginService } from 'src/app/servicio/login.service';
 
 
 @Component({
@@ -10,17 +10,14 @@ import { LoginService } from 'src/app/servicio/login.service';
 
 })
 export class BannerComponent implements OnInit {
-  //info que se obtiene del json
-  banner: any;
-  log : any;
 
-  constructor(private datos : DatosService, private login : LoginService) { }
+  persDatos : any;
+  imagenDefault : String = "./assets/imagenDefault.png";
+  
+  constructor(private datos : DatosService) { }
 
   ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data=>{
-      this.banner = data.Banner;
-    })
-    this.log = this.login;
+    this.persDatos = this.datos.datosPortfolio
   }
 
 }

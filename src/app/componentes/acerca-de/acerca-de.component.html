@@ -1,51 +1,129 @@
 <div class="container p-4 mt-3 border mx-auto divColor">
+  <div class="col d-flex justify-content-end">
+    {{persdatos.localidad.localidad}}<i class="fa-solid fa-location-dot"></i>
+  </div>
   <div class="row">
     <!-- foto, nombre y titulo-->
     <div class="col-sm-0 col-md-4 col-lg-3 border">
       <div class="row">
-        <img appImagenDefault
-          src="{{ acerca.Foto }}"
+        <img                   
+          src="{{persdatos.urlFoto || imagenDefaultFoto}}"
           class="mx-auto foto img-thumbnail rounded-circle p-0"
           alt="Foto"
         />
       </div>
-      <input type="file" hidden #fotoInput [(ngModel)]="acerca.Foto">
-      
-      <button class="btn btn-sm botones" id="botNombre" [hidden]="log.editar" (click)="fotoInput.click()"> 
-        <i class="fa-solid fa-file"></i>
-      </button>
-
-      <div class="text-center">
-        <p
-          [ngClass]="{ editar: nombreTitulo }"
-          [contentEditable]="nombreTitulo"
-        >
-          {{ acerca.Nombre }}
+      <div class="text-center text-wrap text-break">
+        <p>
+          <!-- nombre -->
+          {{ persdatos.nombre }} {{persdatos.apellido}}
         </p>
-        <p
-          [ngClass]="{ editar: nombreTitulo }"
-          [contentEditable]="nombreTitulo"
-        >
-          {{ acerca.Titulo }}
+        <p>
+          <!-- titulo -->
+          {{ persdatos.titulo }}
         </p>
       </div>
-      <div>        
-        <button class="btn btn-sm boton botones" id="botTitulo" [hidden]="log.editar" (click)="nombreTitulo = !nombreTitulo">
-          <i class="fa-solid fa-pen noPointers"></i>
-        </button>
-      </div>
+      <div></div>
     </div>
 
     <!-- Acerca de -->
     <div class="col-sm-12 col-md-8 col-lg-9 border mt-3 mt-md-0">
       <div class="text-center">Sobre mí
-        <button class="btn btn-sm boton botones" id="botInfo" [hidden]="log.editar" (click)="informacion = !informacion">
-          <i class="fa-solid fa-pen noPointers"></i>
-        </button>
+        <button 
+        *ngIf="modoEdicion"       
+        class="btn btn-sm boton botones"
+        id="botTitulo"
+        [hidden]=""
+        (click)="abrirModal(modalEdicion)"
+      >
+        <i class="fa-solid fa-pen"></i>
+      </button>
       </div>
-      <div [ngClass]="{ editar: informacion }" [contentEditable]="informacion">
-        {{ acerca.Informacion }}
+      <div class="text-wrap text-break">
+        <!-- acerca -->
+        {{ persdatos.acerca }} 
       </div>      
+    </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" #modalEdicion>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Acerca de mí...</span>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          (click)="cerrarModal(modalEdicion)"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #persona="ngForm" (ngSubmit)="submit(persona)" novalidate>
+          <label>Banner:</label>
+          <input 
+            type="text"
+            class="form-control" 
+            id="urlBanner"
+            [(ngModel)]="persdatos.urlBanner"
+            name="urlBanner"
+          >
+          <label>Localidad:</label>
+          <input 
+            type="text"
+            class="form-control" 
+            id="localidad"
+            [(ngModel)]="persdatos.localidad.localidad"
+            name="localidad"
+          >            
+          <label>Foto:</label>
+          <input 
+            type="text"
+            class="form-control" 
+            id="urlFoto"
+            [(ngModel)]="persdatos.urlFoto"
+            name="urlFoto"
+          >
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            [(ngModel)]="persdatos.nombre"
+            name="nombre"
+            required
+          />
+          <label>Apellido:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="apellido"
+            [(ngModel)]="persdatos.apellido"
+            name="apellido"
+            required
+          />
+          <label>Titulo:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            [(ngModel)]="persdatos.titulo"
+            name="titulo"
+            required
+          />
+          <label>Sobre mí:</label>
+          <textarea
+            cols="30"
+            rows="5"
+            class="form-control"
+            id="sobre"
+            [(ngModel)]="persdatos.acerca"
+            name="acerca"
+            required
+          ></textarea>          
+          <button type="submit" class="btn btn-primary mt-1">Enviar!</button>
+        </form>
+      </div>
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>

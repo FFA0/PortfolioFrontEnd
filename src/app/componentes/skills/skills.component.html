@@ -1,28 +1,82 @@
-
-
-<div class="container border divColor mt-3 p-2">
-  <div class="row align-items-center" > 
-    <div class="col-sm-12 col-md-4" *ngFor="let ski of porfolioSkills">
+<div class="container border divColor mt-3 p-2 text-wrap text-break">
+  <div class="p-2">Habilidades:</div>
+  <div class="row align-items-center">
+    <div class="col-sm-12 col-md-4" *ngFor="let tec of listaTec">
       <div class="text-center border p-2" #nodo>
-        <div class="circulo mx-auto" style.background="conic-gradient(green {{(ski.valor * 3.6)}}deg, white 0deg)">
-          <div class="circuloInterior border mx-auto">{{ ski.valor }}%</div>
+        <div
+          class="circulo mx-auto"
+          style="background-image: conic-gradient(green 
+          {{ tec.porcentaje * 3.6 }}deg, white 0deg);"
+        >
+          <div class="circuloInterior border mx-auto">
+            {{ tec.porcentaje }}%
+          </div>
         </div>
-        <span>{{ski.nombre}}</span>
-        <div>
-        <input type="text" #valor  maxlength="3" size="3" min="1" max="100" />
-        </div>
-        <button class="btn btn-sm botones checkBoton" (click)="cambiarPorcentaje(valor.value)">
-          <i class="fa-solid fa-check"></i>
+        <span>{{ tec.nombre }}</span>
+        <button
+          class="btn btn-sm botones"
+          *ngIf="modoEdicion"
+          (click)="abrirModal(modalEdicion)"
+        >
+          <i class="fa-solid fa-pen"></i>
         </button>
-        <button class="btn btn-sm botones eliminarBoton" (click)="eliminar(nodo)">
+        <button
+          class="btn btn-sm botones eliminarBoton"
+          *ngIf="modoEdicion"
+          (click)="eliminarTec(tec.id)"
+        >
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-    </div>    
-  </div>
-  <div class="row d-grid gap-2 col-6 mx-auto mt-2 mb-2" (click)="agregar()">
-    <button class="btn btn-outline-primary">
-        <i class="fa-solid fa-plus noPointers"></i>
-      </button>
+      <div class="modal" tabindex="-1" #modalEdicion>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title">asd</span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                (click)="cerrarModal(modalEdicion)"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                #tecnologia="ngForm"
+                (ngSubmit)="enviar(tecnologia, tec.id)"
+                novalidate
+              >
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  [(ngModel)]="tec.nombre"
+                  name="nombre"
+                />
+                <label>Porcentaje:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="porcentaje"
+                  [(ngModel)]="tec.porcentaje"
+                  name="porcentaje"
+                  required
+                />
+                <button type="submit" class="btn btn-primary mt-1">
+                  Enviar!
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="row d-grid gap-2 col-6 mx-auto mt-2 mb-2" *ngIf="modoEdicion">
+    <button class="btn btn-outline-primary" (click)="agregarTec()">
+      <i class="fa-solid fa-plus noPointers"></i>
+    </button>
+  </div>
 </div>

@@ -10,10 +10,13 @@
         <a class="btn btn-outline-light me-1" routerLink="/inicio">Inicio</a>
       </li>
       <li class="nav-item mt-2">
-        <a class="btn btn-outline-light me-1" routerLink="/login">Login</a>
+        <a class="btn btn-outline-light me-1" *ngIf="!log" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item mt-2">
+        <a class="btn btn-outline-light me-1" *ngIf="log" (click)="logout()">Logout</a>
       </li>      
-      <li>
-        <button class="btn btn-sm btn-primary m-2" (click)="metodo.modoEditar();">
+      <li >
+        <button class="btn btn-sm btn-primary m-2" *ngIf="log" (click)="editarPortfolio()">
           <i class="fa-solid fa-pen"></i>
         </button>
       </li>

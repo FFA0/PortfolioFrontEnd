@@ -1,48 +1,127 @@
-<div class="container border p-2 mt-3 divColor">
+<div class="container border p-2 mt-3 divColor text-wrap text-break">
   <div class="p-2">Experiencia Laboral:</div>
-  <ul class="list-group">
-    <li
-      class="list-group-item mb-2"
-      *ngFor="let exp of experiencia"
-    >
-      <div class="row" #borrar>
+  <div class="list-group">
+    <div class="list-group-item mb-2" *ngFor="let exp of listaExp">
+      <div class="row">
+        <div class="row justify-content-center">
+          {{ exp.tituloPuesto }}({{ exp.fechaInicio | date : "yyyy-MM-dd" }}/
+          {{ exp.fechaFinal | date : "yyyy-MM-dd" }})
+        </div>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
-          <img appImagenDefault
-            [src]="exp.Logo"
+          <img
+            src="{{ exp.urlFoto || imagenDefault }}"
             alt="Logo"
             class="img-thumbnail img-fluid Logo"
           />
-          <button class="btn btn-sm botones" id="botLogo" [hidden]="log.editar" (click)="inputLogo.click()">
-            <i class="fa-solid fa-file"></i>
-          </button>
-          <input
-            type="file"
-            hidden
-            [(ngModel)]="exp.Logo"
-            #inputLogo
-          />
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
-          <button class="btn btn-sm boton botones" id="botExperincia" [hidden]="log.editar" (click)="editarTexto(textoDescripcion)">
-            <i class="fa-solid fa-pen noPointers"></i>
-          </button>  
+          <button
+            *ngIf="modoEdicion"
+            class="btn btn-sm boton botones"
+            (click)="abrirModal(modalEdicion)"
+          >
+            <i class="fa-solid fa-pen"></i>
+          </button>
           <div>
-            <p #textoDescripcion contenteditable="false">
-              {{ exp.Descripcion }}
+            <p>
+              {{ exp.actividad }}
             </p>
-          </div>                           
+          </div>
         </div>
       </div>
-      <div class="p-2">
-        <button class="btn botones btn-sm" [hidden]="log.editar" (click)="eliminar($event, borrar)">
+      <div class="p-2" *ngIf="modoEdicion">
+        <button class="btn botones btn-sm" (click)="eliminarExp(exp.id)">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-    </li>
-  </ul>
-  <div class="d-grid gap-2 col-6 mx-auto" >
-    <button class="btn btn-outline-primary" [hidden]="log.editar" (click)="agregar()">
-        <i class="fa-solid fa-plus noPointers"></i>
+      <div class="modal" tabindex="-1" #modalEdicion>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title"
+                >Ingresé la información de la empresa:</span
+              >
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                (click)="cerrarModal(modalEdicion)"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                #experiencia="ngForm"
+                (ngSubmit)="enviar(experiencia, exp.id)"
+                novalidate
+              >
+                <label>Empresa:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="empresa"
+                  [(ngModel)]="exp.empresa"
+                  name="empresa"
+                  required
+                />
+                <label>Puesto:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tituloPuesto"
+                  [(ngModel)]="exp.tituloPuesto"
+                  name="tituloPuesto"
+                  required
+                />
+                <label>Inicio de empleo:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaInicio"
+                  [(ngModel)]="exp.fechaInicio"
+                  name="fechaInicio"
+                  required
+                />
+                <label>Finalización de empleo:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaFinal"
+                  [(ngModel)]="exp.fechaFinal"
+                  name="fechaFinal"
+                  required
+                />
+                <label>Actividad:</label>
+                <textarea
+                  cols="30"
+                  rows="5"
+                  class="form-control"
+                  id="actividad"
+                  [(ngModel)]="exp.actividad"
+                  name="actividad"
+                  required
+                ></textarea>
+                <label for="tipo">Tipo:</label>
+                <select name="tipo" [(ngModel)]="exp.tipo.id" class="form-control">
+                  <optgroup>
+                    <option value="1">Tiempo completo</option>
+                    <option value="2">Medio tiempo</option>
+                    <option value="3">Auto-empleo</option>
+                  </optgroup>
+                </select>
+                <button type="submit" class="btn btn-primary mt-1">
+                  Enviar!
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="modoEdicion">
+      <button class="btn btn-outline-primary" (click)="agregarExp()">
+        <i class="fa-solid fa-plus"></i>
       </button>
     </div>
+  </div>
 </div>

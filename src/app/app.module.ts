@@ -16,9 +16,8 @@ import { ProyectoComponent } from './componentes/proyecto/proyecto.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
-import { LoginService } from './servicio/login.service';
-import { ImagenDefaultDirective } from './imagen-default.directive';
 import { PageNotFoundComponent } from './componentes/page-not-found/page-not-found.component';
+import { DatosService } from './servicio/datos.service';
 
 
 @NgModule({
@@ -34,7 +33,6 @@ import { PageNotFoundComponent } from './componentes/page-not-found/page-not-fou
     FooterComponent,
     LoginComponent,
     NavbarComponent,
-    ImagenDefaultDirective,
     PageNotFoundComponent,    
   ],
   imports: [
@@ -44,7 +42,7 @@ import { PageNotFoundComponent } from './componentes/page-not-found/page-not-fou
     FormsModule,
     BrowserAnimationsModule,    
   ],
-  providers: [LoginService],
+  providers: [DatosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

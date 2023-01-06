@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { PersonaDto } from 'src/app/obj/PersonaDto';
 import { DatosService } from 'src/app/servicio/datos.service';
-import { LoginService } from 'src/app/servicio/login.service';
+
 
 @Component({
   selector: 'app-acerca-de',
@@ -8,20 +11,43 @@ import { LoginService } from 'src/app/servicio/login.service';
   styleUrls: ['./acerca-de.component.css'],
 })
 export class AcercaDeComponent implements OnInit {
-  
-  //info que se obtiene del json
-  acerca: any;
-  log : any;  
-  //boolean para edición
-  nombreTitulo : boolean = false;
-  informacion : boolean = false;
-  
-  constructor(private datos : DatosService, private login : LoginService) {}
 
-  ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data=>{
-      this.acerca = data;
-    })
-    this.log = this.login; 
+  imagenDefaultFoto = "./assets/imagenDefaultFoto.png";
+  modoEdicion : boolean = false;
+
+  persdatos: any;
+
+  submit(pers: NgForm) {
+    if (pers.valid == true) {
+      let p: PersonaDto = {
+        id : pers.value.id, nombre : pers.value.nombre, apellido : pers.value.apellido,
+        titulo : pers.value.titulo, acerca : pers.value.acerca, urlFoto : pers.value.urlFoto,
+        urlBanner : pers.value.urlBanner, listaEducacion : this.persdatos.listaEducacion,
+        listaExperiencia : this.persdatos.listaExperiencia, listaProyecto : this.persdatos.listaProyecto, 
+        listaTecnologia : this.persdatos.listaTecnologia, localidad : {id : this.persdatos.localidad.id, localidad : ""}
+      }           
+      this.datos.editarPer(p).subscribe();
+
+    }
+    else {
+      alert("Rellene los datos que faltan.");
+    }
+  }
+
+  abrirModal(id: any) {
+    id.style.display = "block";
+  }
+
+  cerrarModal(id: any) {
+    id.style.display = "none";
+  }
+
+  constructor(private datos: DatosService) { }
+
+  ngOnInit() {
+    this.persdatos = this.datos.datosPortfolio;
+    this.datos.editEmision.subscribe(valor => {      
+      this.modoEdicion = valor;
+   });
   }
 }

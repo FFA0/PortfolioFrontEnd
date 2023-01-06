@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Educacion } from 'src/app/obj/Educacion';
+import { PersonaDto } from 'src/app/obj/PersonaDto';
 import { DatosService } from 'src/app/servicio/datos.service';
-import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-educacion',
@@ -8,41 +10,58 @@ import { LoginService } from 'src/app/servicio/login.service';
   styleUrls: ['./educacion.component.css']
 })
 export class EducacionComponent implements OnInit {
-  //info que se obtiene del json
-  educacion: any;
-  log : any;  
 
-  //añadir info al json
-  agregar() {
-    let nuevoEdu =
-    {
-      "Descripcion": "texto educacion",
-      "Logo": ""
-    };
-    this.educacion.push(nuevoEdu)
+  persDatos!: PersonaDto;
+  listaEdu!: Educacion[];
+  imagenDefault: any = "./assets/imagenDefault.png";
+  modoEdicion: boolean = false;
+
+  abrirModal(id: any) {
+    id.style.display = "block";
   }
 
-  editarTexto(id :any){
-    id.contentEditable = !id.isContentEditable;
-    if(id.contentEditable == "true"){      
-      id.style.backgroundColor = "rgb(212, 212, 212)"
-    } else {      
-      id.style.backgroundColor = ""
+  cerrarModal(id: any) {
+    id.style.display = "none";
+  }
+
+  enviar(f: NgForm, eduId: number) {
+    if (f.valid == true) {
+      let edu: Educacion = {
+        id: eduId, nombre: f.value.nombre, descripcion: f.value.descripcion,
+        url: f.value.url, persona: { id: this.persDatos.id }
+      }
+      this.datos.editarEdu(edu).subscribe();
+    }
+    else {
+      alert("Rellene los campos que faltan.");
     }
   }
 
-  eliminar(e: any, id : any) {
-    id.parentElement.remove();
+  agregarEdu() {
+    let e: Educacion = {
+      id: 0, nombre: "blank", descripcion: "blank", url: "",
+      persona: { "id": this.persDatos.id }
+    }
+    this.datos.agregarEdu(e).subscribe(response => {
+      this.listaEdu.push(response);
+    });
   }
 
+  eliminarEdu(ids: number) {
+    this.datos.eliminarEdu(ids).subscribe();
+    this.listaEdu.forEach((element, index) => {
+      if (element.id == ids) this.listaEdu.splice(index, 1);
+    });
+  }
 
-  constructor(private datos: DatosService, private login : LoginService) { }
+  constructor(private datos: DatosService) { }
 
-  ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data => {
-      this.educacion = data.Educacion;
-    })
-    this.log = this.login;
+  ngOnInit() {
+    this.persDatos = this.datos.datosPortfolio;
+    this.listaEdu = this.datos.datosPortfolio.listaEducacion;
+    this.datos.editEmision.subscribe(valor => {
+      this.modoEdicion = valor;
+    });
   }
 
 }

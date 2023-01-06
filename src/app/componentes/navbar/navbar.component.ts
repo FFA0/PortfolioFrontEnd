@@ -1,5 +1,5 @@
-import { Component,EventEmitter,OnInit, Output} from '@angular/core';
-import { LoginService } from 'src/app/servicio/login.service';
+import { Component,EventEmitter,OnChanges,OnInit, Output} from '@angular/core';
+import { DatosService } from 'src/app/servicio/datos.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +8,21 @@ import { LoginService } from 'src/app/servicio/login.service';
 })
 export class NavbarComponent implements OnInit {
 
-  metodo : any;
+  log : boolean = false; 
   
-  constructor(private datos : LoginService) { }
+  constructor(private datos : DatosService) { }
 
-  ngOnInit(): void {
-    this.metodo = this.datos;
+  editarPortfolio(){
+    this.datos.modoEdicion();    
+  }
+  
+  logout(){
+    window.location.reload();
+  }
+
+  ngOnInit() { 
+    this.datos.loginEmision.subscribe(valor => {
+      this.log = valor;      
+   });
   }
 }

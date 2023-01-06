@@ -1,36 +1,95 @@
-<div class="container border mt-3 divColor">
+<div class="container border mt-3 divColor text-wrap text-break">
   <div class="p-2">Educación:</div>
-  <ul class="list-group">
-    <li class="list-group-item mb-2" *ngFor="let edu of educacion">
+  <div class="list-group">
+    <div class="list-group-item mb-2" *ngFor="let edu of listaEdu">
       <div class="row" #borrar>
+        <div class="row justify-content-center">{{ edu.nombre }}</div>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
-          <img appImagenDefault [src]="edu.Logo" alt="Logo" class="p-0 img-thumbnail Logo" />          
-          <button class="btn btn-sm botones" id="botLogo" [hidden]="log.editar" (click)="cambiarLogo.click()">
-            <i class="fa-solid fa-file"></i>
-          </button>
-          <input type="file" hidden #cambiarLogo [(ngModel)]="edu.Logo" />
+          <img            
+            src="{{ edu.url || imagenDefault}}"
+            alt="Logo"
+            class="p-0 img-thumbnail Logo"
+          />
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
-          <button class="btn btn-sm boton botones" id="botEducacion" [hidden]="log.editar" (click)="editarTexto(educacionTexto)">
+          <button
+            *ngIf="modoEdicion"
+            class="btn btn-sm boton botones"
+            (click)="abrirModal(modalEdicion)"
+          >
             <i class="fa-solid fa-pen noPointers"></i>
           </button>
           <div>
-            <p #educacionTexto contenteditable="false">
-              {{ edu.Descripcion }}
+            <p>
+              {{ edu.descripcion }}
             </p>
-          </div>          
+          </div>
         </div>
       </div>
-      <div class="p-2">
-        <button class="btn botones btn-sm" [hidden]="log.editar" (click)="eliminar($event, borrar)">
+      <div class="p-2" *ngIf="modoEdicion">
+        <button class="btn botones btn-sm" (click)="eliminarEdu(edu.id)">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-    </li>
-  </ul>
-  <div class="d-grid gap-2 col-6 mx-auto" (click)="agregar()">
-    <button class="btn btn-outline-primary" [hidden]="log.editar">
-      <i class="fa-solid fa-plus noPointers"></i>
-    </button>
+      <div class="modal" tabindex="-1" #modalEdicion>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title">editar</span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                (click)="cerrarModal(modalEdicion)"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                #educacion="ngForm"
+                (ngSubmit)="enviar(educacion, edu.id)"
+                novalidate
+              >
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  [(ngModel)]="edu.nombre"
+                  name="nombre"
+                  required
+                />
+                <label>Url:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="url"
+                  [(ngModel)]="edu.url"
+                  name="url"
+                />
+                <label>Descripcion:</label>
+                <textarea
+                  cols="30"
+                  rows="5"
+                  class="form-control"
+                  id="descripcion"
+                  [(ngModel)]="edu.descripcion"
+                  name="descripcion"
+                  required
+                ></textarea>
+                <button type="submit" class="btn btn-primary mt-1">
+                  Enviar!
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="modoEdicion">
+      <button class="btn btn-outline-primary" (click)="agregarEdu()">
+        <i class="fa-solid fa-plus noPointers"></i>
+      </button>
+    </div>
   </div>
 </div>

@@ -1,35 +1,88 @@
-<div class="container border mt-2 divColor">
-  <div class="p-2">
-    Proyectos En Los Que Trabajé:    
-  </div>
-  <ul class="list-group">
-    <li
-      class="list-group-item mb-3"
-      *ngFor="let proyecto of proyectos;"
-    >
+<div class="container border mt-2 divColor text-wrap text-break">
+  <div class="p-2">Proyectos En Los Que Trabajé:</div>
+  <div class="list-group">
+    <div class="list-group-item mb-3" *ngFor="let proyecto of listaPro">
       <div #borrar>
         <div>
-          <button class="btn btn-sm boton botones" id="botProyecto" [hidden]="log.editar" (click)="editarTexto(titulo, descripcion)">
-            <i class="fa-solid fa-pen noPointers"></i>
-          </button>  
-          <p #titulo contenteditable="false" class="text-center">
-            {{ proyecto.Titulo }}
+          <button
+            *ngIf="modoEdicion"
+            class="btn btn-sm boton botones"
+            id="botProyecto"
+            (click)="abrirModal(modalEdicion)"
+          >
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <p>
+            {{ proyecto.nombre }} {{proyecto.fecha | date: "yyyy-mm-dd"}}
           </p>
         </div>
         <div class="border p-2">
-          <p #descripcion contenteditable="false">
-            {{ proyecto.Descripcion }}
+          <p>
+            {{ proyecto.descripcion }}
           </p>
-        </div>        
-          <button class="btn botones btn-sm" id="botEliminar" [hidden]="log.editar" (click)="eliminar($event,borrar)">
-            <i class="fa-solid fa-trash"></i>
-          </button>          
+        </div>
+        <button class="btn botones btn-sm" id="botEliminar" *ngIf="modoEdicion" (click)="eliminarPro(proyecto.id)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
       </div>
-    </li>
-  </ul>
-  <div class="d-grid gap-2 col-6 mx-auto mt-2 mb-2" (click)="agregar()">
-    <button class="btn btn-outline-primary" [hidden]="log.editar" >
-        <i class="fa-solid fa-plus noPointers"></i>
-      </button>
+      <div class="modal" tabindex="-1" #modalEdicion>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="modal-title">asd</span>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                (click)="cerrarModal(modalEdicion)"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                #pro="ngForm"
+                (ngSubmit)="enviar(pro, proyecto.id)"
+                novalidate
+              >
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  [(ngModel)]="proyecto.nombre"
+                  name="nombre"
+                />                
+                <label>Url:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fecha"
+                  [(ngModel)]="proyecto.fecha"
+                  name="fecha"
+                />
+                <label>Descripcion:</label>
+                <textarea
+                  cols="30"
+                  rows="5"
+                  class="form-control"
+                  id="descripcion"
+                  [(ngModel)]="proyecto.descripcion"
+                  name="descripcion"
+                  required
+                ></textarea>
+                <button type="submit" class="btn btn-primary mt-1">
+                  Enviar!
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto mt-2 mb-2" *ngIf="modoEdicion">
+    <button class="btn btn-outline-primary" (click)="agregarPro()">
+      <i class="fa-solid fa-plus noPointers"></i>
+    </button>
   </div>
 </div>

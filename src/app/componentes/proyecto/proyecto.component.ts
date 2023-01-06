@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { PersonaDto } from 'src/app/obj/PersonaDto';
+import { Proyecto } from 'src/app/obj/Proyecto';
 import { DatosService } from 'src/app/servicio/datos.service';
-import { LoginService } from 'src/app/servicio/login.service';
 
 @Component({
   selector: 'app-proyecto',
@@ -8,44 +10,62 @@ import { LoginService } from 'src/app/servicio/login.service';
   styleUrls: ['./proyecto.component.css']
 })
 export class ProyectoComponent implements OnInit {
+  persDatos!: PersonaDto;
+  listaPro: Proyecto[] = [];
+  modoEdicion : boolean = false;
 
-  proyectos: any;
-  log : any;
-
-  editarTexto(id1 : any, id2 : any) {
-    id1.contentEditable = !id1.isContentEditable;
-    id2.contentEditable = !id2.isContentEditable;
-    if(id1.contentEditable == "true"){    
-       id1.style.backgroundColor = "rgb(212, 212, 212)";
-       id2.style.backgroundColor = "rgb(212, 212, 212)";
-     } 
-     else {       
-       id1.style.backgroundColor = "";
-       id2.style.backgroundColor = "";
-    }
+  abrirModal(id: any) {
+    id.style.display = "block";
   }
 
-  agregar() {
+  cerrarModal(id: any) {
+    id.style.display = "none";
+  }
 
-    let proyecto =
+  enviar(f : NgForm, proId : number){
+    if(f.valid == true){
+      let pro : Proyecto = {
+      id : proId, nombre : f.value.nombre, 
+      descripcion : f.value.descripcion, 
+      fecha : f.value.fecha,
+      persona : {id : this.persDatos.id}
+    }
+      this.datos.editarPro(pro).subscribe();
+    }
+    else
     {
-      "Titulo": "Nombre Del Proyecto",
-      "Descripcion": "Descripcion del Proyecto"
+      alert("Rellene los campos que faltan.");
+    }    
+  }
+
+  agregarPro() {
+    let fechaActual = new Date;
+
+    let pro: Proyecto = {
+      id: 0, nombre: "blank", descripcion: "blank", 
+      fecha: fechaActual, persona: { id: this.persDatos.id }
     }
-    this.proyectos.push(proyecto)
+
+    this.datos.agregarPro(pro).subscribe(response => {
+      this.listaPro.push(response);
+    });
   }
 
-  eliminar(e: any, id: any) {
-    id.parentElement.remove();
+  eliminarPro(ids : number){
+    this.datos.eliminarPro(ids).subscribe();
+    this.listaPro.forEach((element,index)=>{
+      if(element.id == ids) this.listaPro.splice(index,1);
+   });
   }
 
-  constructor(private datos: DatosService, private login : LoginService) { }
+  constructor(private datos: DatosService) { }
 
-  ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data => {
-      this.proyectos = data.Proyectos;
-    })
-    this.log = this.login;
+  ngOnInit() {
+    this.persDatos = this.datos.datosPortfolio;
+    this.listaPro = this.datos.datosPortfolio.listaProyecto;
+    this.datos.editEmision.subscribe(valor => {      
+      this.modoEdicion = valor;
+   }); 
   }
 
 }

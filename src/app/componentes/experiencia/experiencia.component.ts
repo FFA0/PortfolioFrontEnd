@@ -2,8 +2,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core'
+import { NgForm } from '@angular/forms';
+import { Experiencia } from 'src/app/obj/Experiencia';
+import { PersonaDto } from 'src/app/obj/PersonaDto';
 import { DatosService } from 'src/app/servicio/datos.service';
-import { LoginService } from 'src/app/servicio/login.service';
 
 
 @Component({
@@ -12,42 +14,67 @@ import { LoginService } from 'src/app/servicio/login.service';
   styleUrls: ['./experiencia.component.css'],
 })
 export class ExperienciaComponent implements OnInit {
-  
-  //info que se obtiene del json
-  experiencia: any;
-  log : any;
-  
+
+  persDatos!: PersonaDto;
+  listaExp: Experiencia[] = [];
+  imagenDefault : any = "./assets/imagenDefault.png";
+  modoEdicion : boolean = false;
+
   //editar texto 
-  editarTexto(id :any){
-    id.contentEditable = !id.isContentEditable;
-    if(id.contentEditable == "true"){
-      id.style.backgroundColor = "rgb(212, 212, 212)"
-    } 
+  abrirModal(id: any) {
+    id.style.display = "block";
+  }
+
+  cerrarModal(id: any) {
+    id.style.display = "none";
+  }
+
+  enviar(exp: NgForm, expId: number) {
+    if (exp.valid == true) {
+      let e: Experiencia = {
+        id: expId, tituloPuesto: exp.value.tituloPuesto, empresa: exp.value.empresa,
+        trabajoActual: exp.value.trabajoActual, fechaInicio: exp.value.fechaInicio,
+        fechaFinal: exp.value.fechaFinal,urlFoto : exp.value.urlFoto ,actividad: exp.value.actividad,
+        tipo : {id :exp.value.tipo, tipo : ""}, persona: { id: this.persDatos.id }
+      }
+      this.datos.editarExp(e).subscribe();           
+    }
     else {
-      id.style.backgroundColor = "";
+      alert("Rellene los campos que faltan.")
     }
   }
 
-  eliminar(e: any, id : any) {
-    id.parentElement.remove();
-  }
+  agregarExp() {
+    let fechaActual = new Date;
 
-  //añadir info al json
-  agregar() {
-    let exp =
-    {
-      "Descripcion": "texto",
-      "Logo": ""
+    let ex: Experiencia = {
+      id: 0, tituloPuesto: "blank", empresa: "blank",
+      trabajoActual: false, actividad: "blank", fechaInicio: fechaActual,
+      fechaFinal: fechaActual,urlFoto : "", tipo: {id : 1, tipo : ""},
+      persona: { "id": this.persDatos.id }
     }
-    this.experiencia.push(exp)
+    if (this.persDatos != null) {
+      this.datos.agregarExp(ex).subscribe(response => {
+        this.listaExp.push(response);
+      });
+     
+    }
   }
 
-  constructor(private datos: DatosService, private login : LoginService) { }
+  eliminarExp(ids : number){
+    this.datos.eliminarExp(ids).subscribe();
+    this.listaExp.forEach((element,index)=>{
+      if(element.id == ids) this.listaExp.splice(index,1);
+   });
+  }
 
-  ngOnInit(): void {
-    this.datos.obtenerDatos().subscribe(data => {
-      this.experiencia = data.Experiencia;
-    })
-    this.log = this.login;
+  constructor(private datos: DatosService) { }
+
+  ngOnInit() {
+    this.persDatos = this.datos.datosPortfolio;
+    this.listaExp = this.datos.datosPortfolio.listaExperiencia;    
+    this.datos.editEmision.subscribe(valor => {      
+      this.modoEdicion = valor;
+   });    
   }
 }
