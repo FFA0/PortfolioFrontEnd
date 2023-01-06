@@ -36,7 +36,7 @@ export class DatosService {
   @Output() editEmision: EventEmitter<any> = new EventEmitter();
 
   constructor(private http : HttpClient) { 
-    this.apiUrl = "http://localhost:8080";    
+    this.apiUrl = "https://portfoliobackend-wgl5.onrender.com";    
   }
 
   //login
