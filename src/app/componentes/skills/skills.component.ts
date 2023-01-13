@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { PersonaDto } from 'src/app/interfaces/PersonaDto';
 import { Tecnologia } from 'src/app/interfaces/Habilidad';
 import { PersonaService } from 'src/app/servicio/persona.service';
-import { TecnologiaService } from 'src/app/servicio/tecnologia.service';
+import { TecnologiaService } from 'src/app/servicio/habilidad.service';
 
 @Component({
   selector: 'app-skills',

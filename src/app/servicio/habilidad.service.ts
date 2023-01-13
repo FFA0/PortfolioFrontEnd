@@ -15,14 +15,14 @@ export class TecnologiaService {
   }
 
   agregarTec(tec : Tecnologia) : Observable<Tecnologia>{
-    return this.http.post<Tecnologia>(this.apiUrl + "/tecnologia/crear", tec);
+    return this.http.post<Tecnologia>(this.apiUrl + "/habilidad/crear", tec);
   }
 
   editarTec(tec : Tecnologia) : Observable<Tecnologia>{
-    return this.http.put<Tecnologia>(this.apiUrl + "/tecnologia/editar/" + tec.id, tec);
+    return this.http.put<Tecnologia>(this.apiUrl + "/habilidad/editar/" + tec.id, tec);
   }
 
   eliminarTec(id : number) : Observable<Tecnologia>{
-    return this.http.delete<Tecnologia>(this.apiUrl + "/tecnologia/eliminar/" + id);
+    return this.http.delete<Tecnologia>(this.apiUrl + "/habilidad/eliminar/" + id);
   } 
 }
