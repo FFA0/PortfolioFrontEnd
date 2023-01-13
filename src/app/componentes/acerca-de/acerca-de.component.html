@@ -1,51 +1,43 @@
-<div class="container p-4 mt-3 border mx-auto divColor">
-  <div class="col d-flex justify-content-end">
-    {{persdatos.localidad.localidad}}<i class="fa-solid fa-location-dot"></i>
-  </div>
+<div class="container p-4 mt-3 border mx-auto divColor text-wrap text-break">
   <div class="row">
-    <!-- foto, nombre y titulo-->
     <div class="col-sm-0 col-md-4 col-lg-3 border">
       <div class="row">
-        <img                   
-          src="{{persdatos.urlFoto || imagenDefaultFoto}}"
+        <img
+          src="{{ persDatos.urlFoto || imagenDefaultFoto }}"
           class="mx-auto foto img-thumbnail rounded-circle p-0"
           alt="Foto"
         />
       </div>
-      <div class="text-center text-wrap text-break">
+      <div class="text-center">
+        <p>{{ persDatos.nombre }} {{ persDatos.apellido }}</p>
         <p>
-          <!-- nombre -->
-          {{ persdatos.nombre }} {{persdatos.apellido}}
-        </p>
-        <p>
-          <!-- titulo -->
-          {{ persdatos.titulo }}
+          {{ persDatos.titulo }}
         </p>
       </div>
-      <div></div>
     </div>
-
-    <!-- Acerca de -->
     <div class="col-sm-12 col-md-8 col-lg-9 border mt-3 mt-md-0">
-      <div class="text-center">Sobre mí
-        <button 
-        *ngIf="modoEdicion"       
-        class="btn btn-sm boton botones"
-        id="botTitulo"
-        [hidden]=""
-        (click)="abrirModal(modalEdicion)"
-      >
-        <i class="fa-solid fa-pen"></i>
-      </button>
+      <div class="text-center">
+        Sobre mí
+        <button
+          *ngIf="usuarioAut"
+          class="btn btn-sm boton botones"
+          id="botTitulo"
+          (click)="abrirModal(modalEdicion, persona)"
+        >
+          <i class="fa-solid fa-pen"></i>
+        </button>
       </div>
-      <div class="text-wrap text-break">
-        <!-- acerca -->
-        {{ persdatos.acerca }} 
-      </div>      
+      <div>
+        {{ persDatos.acerca }}
+      </div>
+    </div>
+    <div>
+      <i class="fa-solid fa-location-dot"></i>
+      {{ persDatos.localidad.localidad }}
     </div>
   </div>
 </div>
-<div class="modal" tabindex="-1" #modalEdicion>
+<div class="modal" tabindex="-1" #modalEdicion id="modalAcerca">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,41 +46,48 @@
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          (click)="cerrarModal(modalEdicion)"
+          (click)="cerrarModal(modalEdicion, persona)"
+          id="cerrarModalAcerca"
         ></button>
       </div>
       <div class="modal-body">
-        <form #persona="ngForm" (ngSubmit)="submit(persona)" novalidate>
-          <label>Banner:</label>
-          <input 
-            type="text"
-            class="form-control" 
+        <form #persona="ngForm" (ngSubmit)="enviar(persona)" novalidate>
+          <label>Banner(url):</label>
+          <input
+            type="url"
+            pattern="https://.*"
+            size="255"
+            class="form-control"
             id="urlBanner"
-            [(ngModel)]="persdatos.urlBanner"
+            [(ngModel)]="persDatos.urlBanner"
             name="urlBanner"
-          >
-          <label>Localidad:</label>
-          <input 
-            type="text"
-            class="form-control" 
-            id="localidad"
-            [(ngModel)]="persdatos.localidad.localidad"
+          />
+          <label for="tipo">Localidad:</label>
+          <select
             name="localidad"
-          >            
-          <label>Foto:</label>
-          <input 
-            type="text"
-            class="form-control" 
-            id="urlFoto"
-            [(ngModel)]="persdatos.urlFoto"
-            name="urlFoto"
+            [(ngModel)]="persDatos.localidad"
+            class="form-control"
           >
+            <option *ngFor="let loc of listaLoc" [ngValue]="loc">
+              {{ loc.localidad }}
+            </option>
+          </select>
+          <label>Foto(url):</label>
+          <input
+            type="url"
+            pattern="https://.*"
+            size="255"
+            class="form-control"
+            [(ngModel)]="persDatos.urlFoto"
+            id="urlFoto"
+            name="urlFoto"
+          />
           <label>Nombre:</label>
           <input
             type="text"
             class="form-control"
             id="nombre"
-            [(ngModel)]="persdatos.nombre"
+            [(ngModel)]="persDatos.nombre"
             name="nombre"
             required
           />
@@ -97,7 +96,7 @@
             type="text"
             class="form-control"
             id="apellido"
-            [(ngModel)]="persdatos.apellido"
+            [(ngModel)]="persDatos.apellido"
             name="apellido"
             required
           />
@@ -106,7 +105,7 @@
             type="text"
             class="form-control"
             id="titulo"
-            [(ngModel)]="persdatos.titulo"
+            [(ngModel)]="persDatos.titulo"
             name="titulo"
             required
           />
@@ -116,10 +115,10 @@
             rows="5"
             class="form-control"
             id="sobre"
-            [(ngModel)]="persdatos.acerca"
+            [(ngModel)]="persDatos.acerca"
             name="acerca"
             required
-          ></textarea>          
+          ></textarea>
           <button type="submit" class="btn btn-primary mt-1">Enviar!</button>
         </form>
       </div>

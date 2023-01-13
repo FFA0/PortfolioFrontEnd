@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/obj/Login';
-import { DatosService } from 'src/app/servicio/datos.service';
+import { Login } from 'src/app/interfaces/Login';
+import { PersonaService } from 'src/app/servicio/persona.service';
 
 
 @Component({
@@ -12,24 +12,36 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class LoginComponent implements OnInit {
 
-   
-  constructor(private datos : DatosService, private router: Router ) { }  
-  
+  estaAutenticado: boolean = false;
+
+
+  constructor(private perServ: PersonaService, private router: Router) { }
+
   submit(lForm: NgForm) {
+    let l: Login =
+      { "usuario": lForm.value.usuario, "contrasena": lForm.value.contrasena }
+
     if (lForm.valid == true) {
-      let l: Login = { "usuario": lForm.value.usuario, "contrasena": lForm.value.contrasena }
-        this.datos.login(l).subscribe((response : any) => {
-          this.datos.datosPortfolio = response;
-          this.router.navigate(["/inicio"]);  
-          this.datos.logeado()                  
-      });
-         
-    } 
-    else 
-    {
-      alert("Usuario y contraseña invalidos.");      
+      this.perServ.login(l).subscribe({
+        next: (response) => {
+          if (response != null) {
+            lForm.reset();
+            this.estaAutenticado = true;
+            this.router.navigate(["/inicio"]);
+          }
+        },
+        error: (e) => {
+          this.estaAutenticado = false;
+          alert("Usuario y/o contraseña incorrectos.");
+        }
+      })
+    } else {
+      this.estaAutenticado = false;
+      alert("Usuario y/o contraseña invalidos.");
     }
   }
-  
-  ngOnInit(): void {  }
+
+  ngOnInit() { }
+
 }
+

@@ -1,71 +1,85 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PersonaDto } from 'src/app/obj/PersonaDto';
-import { Proyecto } from 'src/app/obj/Proyecto';
-import { DatosService } from 'src/app/servicio/datos.service';
-
+import { Proyecto } from 'src/app/interfaces/Proyecto';
+import { PersonaService } from 'src/app/servicio/persona.service';
+import { ProyectoService } from 'src/app/servicio/proyecto.service';
 @Component({
   selector: 'app-proyecto',
   templateUrl: './proyecto.component.html',
   styleUrls: ['./proyecto.component.css']
 })
 export class ProyectoComponent implements OnInit {
-  persDatos!: PersonaDto;
+
   listaPro: Proyecto[] = [];
-  modoEdicion : boolean = false;
+  usuarioAut: boolean = false;
+  formDefault: any;
 
-  abrirModal(id: any) {
+  abrirModal(id: any, form: NgForm) {
     id.style.display = "block";
+    this.formDefault = form.value;
   }
 
-  cerrarModal(id: any) {
+  cerrarModal(id: any, form: NgForm) {
     id.style.display = "none";
+    form.resetForm(this.formDefault);
   }
 
-  enviar(f : NgForm, proId : number){
-    if(f.valid == true){
-      let pro : Proyecto = {
-      id : proId, nombre : f.value.nombre, 
-      descripcion : f.value.descripcion, 
-      fecha : f.value.fecha,
-      persona : {id : this.persDatos.id}
+  enviar(form: NgForm, proId: number) {
+    let pro: Proyecto = {
+      id: proId, nombre: form.value.nombre,
+      descripcion: form.value.descripcion,
+      fechaInicio: form.value.fechaInicio,
+      fechaFinal: form.value.fechaFinal,
+      urlProyecto : form.value.urlProyecto,
+      persona: { id: 1 }
     }
-      this.datos.editarPro(pro).subscribe();
+    if (form.valid) {
+      this.proServ.editarPro(pro).subscribe({
+        error: (e) => console.error(e)
+      });
+      (document.getElementById("modalPro" + proId) as HTMLElement).style.display = "none";
     }
-    else
-    {
+    else {
       alert("Rellene los campos que faltan.");
-    }    
+    }
   }
 
   agregarPro() {
     let fechaActual = new Date;
 
     let pro: Proyecto = {
-      id: 0, nombre: "blank", descripcion: "blank", 
-      fecha: fechaActual, persona: { id: this.persDatos.id }
+      id: 0, nombre: "vacio",
+      descripcion: "vacio",
+      fechaInicio: fechaActual,
+      fechaFinal: fechaActual,
+      urlProyecto : "",
+      persona: { id: 1 }
     }
-
-    this.datos.agregarPro(pro).subscribe(response => {
-      this.listaPro.push(response);
+    this.proServ.agregarPro(pro).subscribe({
+      next: (response) => this.listaPro.push(response),
+      error: (e) => console.error(e)
     });
   }
 
-  eliminarPro(ids : number){
-    this.datos.eliminarPro(ids).subscribe();
-    this.listaPro.forEach((element,index)=>{
-      if(element.id == ids) this.listaPro.splice(index,1);
-   });
+  eliminarPro(ids: number) {
+    this.proServ.eliminarPro(ids).subscribe();
+    this.listaPro.forEach((element, index) => {
+      if (element.id == ids) this.listaPro.splice(index, 1);
+    });
   }
 
-  constructor(private datos: DatosService) { }
+  constructor(private perServ: PersonaService,
+    private proServ: ProyectoService) { }
 
   ngOnInit() {
-    this.persDatos = this.datos.datosPortfolio;
-    this.listaPro = this.datos.datosPortfolio.listaProyecto;
-    this.datos.editEmision.subscribe(valor => {      
-      this.modoEdicion = valor;
-   }); 
+    this.perServ.traerPortfolio().subscribe({
+      next: (v) => this.listaPro = v.listaProyecto,
+      error: (e) => console.error(e)
+    });
+    this.perServ.estaAutenticado.subscribe({
+      next: (response) => this.usuarioAut = response,
+      error: (e) => console.error(e)
+    });
   }
 
 }

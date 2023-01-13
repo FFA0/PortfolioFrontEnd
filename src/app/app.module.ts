@@ -17,7 +17,10 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { PageNotFoundComponent } from './componentes/page-not-found/page-not-found.component';
-import { DatosService } from './servicio/datos.service';
+import { PersonaService } from './servicio/persona.service';
+import { ExperienciaService } from './servicio/experiencia.service';
+import { EducacionService } from './servicio/educacion.service';
+import { ProyectoService } from './servicio/proyecto.service';
 
 
 @NgModule({
@@ -33,16 +36,19 @@ import { DatosService } from './servicio/datos.service';
     FooterComponent,
     LoginComponent,
     NavbarComponent,
-    PageNotFoundComponent,    
+    PageNotFoundComponent,
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
   ],
-  providers: [DatosService],
+  providers: [PersonaService, 
+              ExperienciaService, 
+              EducacionService, 
+              ProyectoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

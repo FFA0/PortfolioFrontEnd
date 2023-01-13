@@ -1,14 +1,14 @@
 <div class="container border p-3 mt-3 divColor">
   <div class="border text-center">
-    <img 
-      src="{{persDatos.urlBanner || imagenDefault}}" 
-      class="imagenBanner img-fluid" 
-      alt="Banner" 
-    />    
+    <img
+      src="{{ perBanner || imagenDefault }}"
+      class="imagenBanner img-fluid"
+      alt="Banner"
+    />
   </div>
 </div>
 
-<app-acerca-de></app-acerca-de>
+<app-acerca-de (imagenBanner)="cambiarBanner($event)"></app-acerca-de>
 <app-experiencia></app-experiencia>
 <app-educacion></app-educacion>
 <app-skills></app-skills>

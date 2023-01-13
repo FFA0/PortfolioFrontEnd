@@ -13,7 +13,7 @@ export let deslizar =
         transition("login => inicio", deslizarhacia("right")),
     ])
 
-function deslizarhacia(direcction: string) {
+function deslizarhacia(direccion: string) {
     let optional = { optional: true };
     return [
         style({ position: "relative" }),
@@ -21,19 +21,19 @@ function deslizarhacia(direcction: string) {
                 style({
                     position: "absolute",
                     top: 0,
-                    [direcction]: 0,
-                    width: "100%"
+                    [direccion]: 0,
+                    width: "100%"                    
                 })
             ], optional),
-            query(":enter",[
-                style({[direcction]: "100%"})
+            query(":enter", [
+                style({[direccion]: "100%"})
             ]),
             group([
                 query(":leave", [
-                    animate("400ms ease", style({[direcction]: "-100%"}))
+                    animate("400ms ease-in-out", style({[direccion]: "-100%"}))
                 ], optional),
                 query(":enter",[
-                    animate("400ms ease", style({[direcction]: "0%"}))
+                    animate("400ms ease-in-out", style({[direccion]: "0%"}))
                 ])
             ])
     ]

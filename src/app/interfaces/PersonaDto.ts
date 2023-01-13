@@ -3,7 +3,7 @@ import { Educacion } from "./Educacion";
 import { Experiencia } from "./Experiencia";
 import { Localidad } from "./Localidad";
 import { Proyecto } from "./Proyecto";
-import { Tecnologia } from "./Tecnologia";
+import { Tecnologia } from "./Habilidad";
 
 export interface PersonaDto {
 

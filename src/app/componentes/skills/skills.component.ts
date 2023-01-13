@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PersonaDto } from 'src/app/obj/PersonaDto';
-import { Tecnologia } from 'src/app/obj/Tecnologia';
-import { DatosService } from 'src/app/servicio/datos.service';
+import { PersonaDto } from 'src/app/interfaces/PersonaDto';
+import { Tecnologia } from 'src/app/interfaces/Habilidad';
+import { PersonaService } from 'src/app/servicio/persona.service';
+import { TecnologiaService } from 'src/app/servicio/tecnologia.service';
 
 @Component({
   selector: 'app-skills',
@@ -10,58 +11,68 @@ import { DatosService } from 'src/app/servicio/datos.service';
   styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
-  
-  persDatos! : PersonaDto;
-  listaTec : Tecnologia[] = [];
-  modoEdicion : boolean = false;
 
-  abrirModal(id : any){
+  listaTec: Tecnologia[] = [];
+  usuarioAut: boolean = false;
+  formDefault: any;
+
+  abrirModal(id: any, form: NgForm) {
     id.style.display = "block";
+    this.formDefault = form.value;
   }
 
-  cerrarModal(id : any){
+  cerrarModal(id: any, form: NgForm) {
     id.style.display = "none";
+    form.resetForm(this.formDefault);
   }
 
-  enviar(f : NgForm, tecId : number){
-    if(f.valid == true){
-      let tec : Tecnologia = {
-      id : tecId, nombre : f.value.nombre, 
-      porcentaje : f.value.porcentaje , 
-      persona : {id : this.persDatos.id}
+  enviar(f: NgForm, tecId: number) {
+    let tec: Tecnologia = {
+      id: tecId, nombre: f.value.nombre,
+      porcentaje: f.value.porcentaje,
+      persona: { id: 1 }
     }
-      this.datos.editarTec(tec).subscribe();
+    if (f.valid) {
+      this.tecServ.editarTec(tec).subscribe({
+        error: (e) => console.error(e)
+      });
+      (document.getElementById("modalSkill" + tecId) as HTMLElement).style.display = "none";
     }
-    else
-    {
+    else {
       alert("Rellene los campos que faltan.");
-    }    
+    }
   }
 
-  agregarTec(){
-    let tec : Tecnologia = {
-      id : 0, nombre : "blank", porcentaje : 0, persona : {"id" : this.persDatos.id}
+  agregarTec() {
+    let tec: Tecnologia = {
+      id: 0, nombre: "vacio", porcentaje: 0,
+      persona: { "id": 1 }
     }
-    this.datos.agregarTec(tec).subscribe(response => {
-      this.listaTec.push(response);
+    this.tecServ.agregarTec(tec).subscribe({
+      next: (response) => this.listaTec.push(response),
+      error: (e) => console.error(e)
     });
   }
 
-  eliminarTec(ids : number){
-    this.datos.eliminarTec(ids).subscribe();
-    this.listaTec.forEach((element,index)=>{
-      if(element.id == ids) this.listaTec.splice(index,1);
-   });
+  eliminarTec(valor: number) {
+    this.tecServ.eliminarTec(valor).subscribe();
+    this.listaTec.forEach((element, index) => {
+      if (element.id == valor) this.listaTec.splice(index, 1);
+    });
   }
 
-  constructor(private datos : DatosService) { }
+  constructor(private perServ: PersonaService,
+    private tecServ: TecnologiaService) { }
 
   ngOnInit() {
-    this.persDatos = this.datos.datosPortfolio;
-    this.listaTec = this.datos.datosPortfolio.listaTecnologia;
-    this.datos.editEmision.subscribe(valor => {      
-      this.modoEdicion = valor;
-   });  
+    this.perServ.traerPortfolio().subscribe({
+      next: (v) => this.listaTec = v.listaTecnologia,
+      error: (e) => console.error(e)
+    });
+    this.perServ.estaAutenticado.subscribe({
+      next: (response) => this.usuarioAut = response,
+      error: (e) => console.error(e)
+    });
   }
 
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonaDto } from 'src/app/obj/PersonaDto';
-import { DatosService } from 'src/app/servicio/datos.service';
+import { PersonaService } from 'src/app/servicio/persona.service';
 
 
 @Component({
@@ -11,13 +10,20 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class BannerComponent implements OnInit {
 
-  persDatos : any;
-  imagenDefault : String = "./assets/imagenDefault.png";
-  
-  constructor(private datos : DatosService) { }
+  perBanner: String = "";
+  imagenDefault: String = "./assets/imagenDefault.png";
+
+  constructor(private per: PersonaService) { }
+
+  cambiarBanner(valor: String) {
+    this.perBanner = valor;
+  }
 
   ngOnInit(): void {
-    this.persDatos = this.datos.datosPortfolio
+    this.per.traerPortfolio().subscribe({
+      next: (response) => this.perBanner = response.urlBanner,
+      error: (e) => console.error(e)
+    });
   }
 
 }

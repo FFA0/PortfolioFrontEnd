@@ -1,27 +1,27 @@
 <div class="border p-2 mx-auto mt-5 bg-secondary container">
   <div class="bg-light border">
-  <form #loginForm="ngForm" (ngSubmit)="submit(loginForm)" novalidate> 
-    <div class="m-2">
-      <input
-        class="form-control"
-        placeholder="Usuario"
-        name="usuario"
-        #first="ngModel"
-        ngModel
-        required        
-      />
-    </div>
-    <div class="m-2">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Contraseña"
-        name="contrasena"
-        ngModel
-        required             
-      />
-    </div>
-    <button class="btn btn-primary m-2">Login</button>
-  </form>
-</div>
+    <form #loginForm="ngForm" (ngSubmit)="submit(loginForm)" novalidate>
+      <div class="m-2">
+        <input
+          class="form-control"
+          placeholder="Usuario"
+          name="usuario"
+          #first="ngModel"
+          ngModel
+          required
+        />
+      </div>
+      <div class="m-2">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Contraseña"
+          name="contrasena"
+          ngModel
+          required
+        />
+      </div>
+      <button class="btn btn-primary m-2">Login</button>
+    </form>
+  </div>
 </div>

@@ -3,9 +3,23 @@
   <div class="list-group">
     <div class="list-group-item mb-2" *ngFor="let exp of listaExp">
       <div class="row">
-        <div class="row justify-content-center">
-          {{ exp.tituloPuesto }}({{ exp.fechaInicio | date : "yyyy-MM-dd" }}/
-          {{ exp.fechaFinal | date : "yyyy-MM-dd" }})
+        <div class="row">
+          <div
+            class="col-12 col-sm-3 col-md-3 col-lg-3"
+            *ngIf="exp.trabajoActual"
+          >
+            Trabajando en:
+          </div>
+          <div class="col col-sm-4 col-md-3 col-lg-3">
+            {{ exp.empresa }} {{ exp.tituloPuesto }}
+          </div>
+          <div
+            class="col col-sm-5 col-md-6 col-lg-6"
+            *ngIf="!exp.trabajoActual"
+          >
+            ({{ exp.fechaInicio | date : "yyyy-MM-dd" }} /
+            {{ exp.fechaFinal | date : "yyyy-MM-dd" }})
+          </div>
         </div>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
           <img
@@ -16,9 +30,9 @@
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
           <button
-            *ngIf="modoEdicion"
+            *ngIf="usuarioAut"
             class="btn btn-sm boton botones"
-            (click)="abrirModal(modalEdicion)"
+            (click)="abrirModal(modalEdicion, experiencia)"
           >
             <i class="fa-solid fa-pen"></i>
           </button>
@@ -29,12 +43,12 @@
           </div>
         </div>
       </div>
-      <div class="p-2" *ngIf="modoEdicion">
+      <div class="p-2" *ngIf="usuarioAut">
         <button class="btn botones btn-sm" (click)="eliminarExp(exp.id)">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-      <div class="modal" tabindex="-1" #modalEdicion>
+      <div class="modal" tabindex="-1" #modalEdicion id="modalExp{{ exp.id }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -45,7 +59,8 @@
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
-                (click)="cerrarModal(modalEdicion)"
+                (click)="cerrarModal(modalEdicion, experiencia)"
+                id="cerrarModalExp"
               ></button>
             </div>
             <div class="modal-body">
@@ -54,6 +69,16 @@
                 (ngSubmit)="enviar(experiencia, exp.id)"
                 novalidate
               >
+                <label>Logo:</label>
+                <input
+                  type="url"
+                  pattern="https://.*"
+                  size="255"
+                  class="form-control"
+                  [(ngModel)]="exp.urlFoto"
+                  id="urlFoto"
+                  name="urlFoto"
+                />
                 <label>Empresa:</label>
                 <input
                   type="text"
@@ -72,24 +97,47 @@
                   name="tituloPuesto"
                   required
                 />
-                <label>Inicio de empleo:</label>
+                <label>Es trabajo actual:</label> <br />
                 <input
-                  type="date"
-                  class="form-control"
-                  id="fechaInicio"
-                  [(ngModel)]="exp.fechaInicio"
-                  name="fechaInicio"
+                  type="radio"
+                  class="form-check-input"
+                  id="si"
+                  [(ngModel)]="exp.trabajoActual"
+                  name="trabajoActual"
+                  [value]="true"
                   required
                 />
-                <label>Finalización de empleo:</label>
+                <label for="si" class="form-check-label">Si</label>
                 <input
-                  type="date"
-                  class="form-control"
-                  id="fechaFinal"
-                  [(ngModel)]="exp.fechaFinal"
-                  name="fechaFinal"
+                  type="radio"
+                  class="form-check-input"
+                  id="no"
+                  [(ngModel)]="exp.trabajoActual"
+                  name="trabajoActual"
+                  [value]="false"
                   required
                 />
+                <label for="no" class="form-check-label">No</label><br />
+                <div [hidden]="exp.trabajoActual">
+                  <label>Inicio de empleo:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaInicio"
+                    [(ngModel)]="exp.fechaInicio"
+                    name="fechaInicio"
+                    required
+                  />
+                  <label>Finalización de empleo:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaFinal"
+                    [(ngModel)]="exp.fechaFinal"
+                    name="fechaFinal"
+                    required
+                  />
+                </div>
                 <label>Actividad:</label>
                 <textarea
                   cols="30"
@@ -101,12 +149,10 @@
                   required
                 ></textarea>
                 <label for="tipo">Tipo:</label>
-                <select name="tipo" [(ngModel)]="exp.tipo.id" class="form-control">
-                  <optgroup>
-                    <option value="1">Tiempo completo</option>
-                    <option value="2">Medio tiempo</option>
-                    <option value="3">Auto-empleo</option>
-                  </optgroup>
+                <select name="tipo" [(ngModel)]="exp.tipo" class="form-control">
+                  <option *ngFor="let tipo of listaTipo" [ngValue]="tipo">
+                    {{ tipo.tipo }}
+                  </option>
                 </select>
                 <button type="submit" class="btn btn-primary mt-1">
                   Enviar!
@@ -118,7 +164,7 @@
         </div>
       </div>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="modoEdicion">
+    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="usuarioAut">
       <button class="btn btn-outline-primary" (click)="agregarExp()">
         <i class="fa-solid fa-plus"></i>
       </button>

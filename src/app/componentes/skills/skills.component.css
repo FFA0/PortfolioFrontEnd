@@ -1,26 +1,25 @@
 .contenedor {
-    width: 200px;
-    
+  width: 200px;
 }
 
 .circulo {
-    width: 125px;
-    height: 125px; 
-    border-radius: 50%;
-    border: 3px solid gray;   
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  border: 3px solid gray;
 }
 
 .circuloInterior {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    line-height: 50%;
-    background-color: gray;
-    margin-top: 15px;
-    line-height: 80px;
-    text-align: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  line-height: 50%;
+  background-color: gray;
+  margin-top: 15px;
+  line-height: 80px;
+  text-align: center;
 }
 
-.eliminarBoton{   
-    margin: -125px -30px auto auto;
+.eliminarBoton {
+  margin: -125px -30px auto auto;
 }

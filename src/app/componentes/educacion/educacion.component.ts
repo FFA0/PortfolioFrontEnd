@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Educacion } from 'src/app/obj/Educacion';
-import { PersonaDto } from 'src/app/obj/PersonaDto';
-import { DatosService } from 'src/app/servicio/datos.service';
+import { Educacion } from 'src/app/interfaces/Educacion';
+import { PersonaDto } from 'src/app/interfaces/PersonaDto';
+import { EducacionService } from 'src/app/servicio/educacion.service';
+import { PersonaService } from 'src/app/servicio/persona.service';
 
 @Component({
   selector: 'app-educacion',
@@ -11,56 +12,67 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class EducacionComponent implements OnInit {
 
-  persDatos!: PersonaDto;
   listaEdu!: Educacion[];
+  usuarioAut: boolean = false;
   imagenDefault: any = "./assets/imagenDefault.png";
-  modoEdicion: boolean = false;
+  formDefault: any;
 
-  abrirModal(id: any) {
+  abrirModal(id: any, form: NgForm) {
     id.style.display = "block";
+    this.formDefault = form.value;
   }
 
-  cerrarModal(id: any) {
+  cerrarModal(id: any, form: NgForm) {
     id.style.display = "none";
+    form.resetForm(this.formDefault)
   }
 
-  enviar(f: NgForm, eduId: number) {
-    if (f.valid == true) {
-      let edu: Educacion = {
-        id: eduId, nombre: f.value.nombre, descripcion: f.value.descripcion,
-        url: f.value.url, persona: { id: this.persDatos.id }
-      }
-      this.datos.editarEdu(edu).subscribe();
+  enviar(form: NgForm, eduId: number) {
+    let edu: Educacion = {
+      id: eduId, nombre: form.value.nombre,
+      descripcion: form.value.descripcion, url: form.value.url,
+      persona: { "id": 1 }
+    }
+    if (form.valid) {
+      this.eduServ.editarEdu(edu).subscribe({
+        error: (e) => console.error(e)
+      });
+      (document.getElementById("modalEdu" + eduId) as HTMLElement).style.display = "none";
     }
     else {
-      alert("Rellene los campos que faltan.");
+      alert("Rellene los campos que faltan.")
     }
   }
 
   agregarEdu() {
-    let e: Educacion = {
-      id: 0, nombre: "blank", descripcion: "blank", url: "",
-      persona: { "id": this.persDatos.id }
+    let edu: Educacion = {
+      id: 0, nombre: "vacio",
+      descripcion: "vacio", url: "",
+      persona: { "id": 1 }
     }
-    this.datos.agregarEdu(e).subscribe(response => {
+    this.eduServ.agregarEdu(edu).subscribe(response => {
       this.listaEdu.push(response);
     });
   }
 
   eliminarEdu(ids: number) {
-    this.datos.eliminarEdu(ids).subscribe();
+    this.eduServ.eliminarEdu(ids).subscribe();
     this.listaEdu.forEach((element, index) => {
       if (element.id == ids) this.listaEdu.splice(index, 1);
     });
   }
 
-  constructor(private datos: DatosService) { }
+  constructor(private perServ: PersonaService,
+    private eduServ: EducacionService) { }
 
   ngOnInit() {
-    this.persDatos = this.datos.datosPortfolio;
-    this.listaEdu = this.datos.datosPortfolio.listaEducacion;
-    this.datos.editEmision.subscribe(valor => {
-      this.modoEdicion = valor;
+    this.perServ.traerPortfolio().subscribe({
+      next: (v) => this.listaEdu = v.listaEducacion,
+      error: (e) => console.error(e)
+    });
+    this.perServ.estaAutenticado.subscribe({
+      next: (response) => this.usuarioAut = response,
+      error: (e) => console.error(e)
     });
   }
 

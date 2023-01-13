@@ -1,26 +1,71 @@
 <nav class="navbar navbar-expand-sm bg-secondary sticky-top">
   <div class="container-fluid justify-content-end">
-      <button class="navbar-toggler btn bg-light" data-bs-toggle="collapse" data-bs-target="#contenido">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+    <button
+      class="navbar-toggler btn bg-light"
+      data-bs-toggle="collapse"
+      data-bs-target="#contenido"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </div>
   <div class="collapse navbar-collapse" id="contenido">
     <ul class="navbar-nav text-end">
       <li class="nav-item mt-2">
-        <a class="btn btn-outline-light me-1" routerLink="/inicio">Inicio</a>
+        <a class="btn btn-outline-light me-1" routerLink="/inicio">
+          <i class="fa-solid fa-house"></i>
+        </a>
       </li>
       <li class="nav-item mt-2">
-        <a class="btn btn-outline-light me-1" *ngIf="!log" routerLink="/login">Login</a>
+        <a class="btn btn-outline-light me-1" (click)="abrirModal(modalAcerca)">
+          <i class="fa-solid fa-phone"></i>
+        </a>
       </li>
       <li class="nav-item mt-2">
-        <a class="btn btn-outline-light me-1" *ngIf="log" (click)="logout()">Logout</a>
-      </li>      
-      <li >
-        <button class="btn btn-sm btn-primary m-2" *ngIf="log" (click)="editarPortfolio()">
-          <i class="fa-solid fa-pen"></i>
-        </button>
+        <a
+          class="btn btn-outline-light me-1"
+          *ngIf="!usuarioAut"
+          routerLink="/login"
+        >
+          <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+      </li>
+      <li class="nav-item mt-2">
+        <a
+          class="btn btn-outline-light me-1"
+          *ngIf="usuarioAut"
+          (click)="logout()"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
       </li>
     </ul>
   </div>
 </nav>
-
+<div class="modal" tabindex="-1" #modalAcerca>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Información de contacto:</span>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          (click)="cerrarModal(modalAcerca)"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div><i class="fa-brands fa-google"></i>facufroelich@gmail.com</div>
+        <div>
+          <i class="fa-brands fa-github"> </i
+          ><a
+            href="https://github.com/FFA0"
+            class="link-secondary"
+            target="_blank"
+            >GitHub</a
+          >
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

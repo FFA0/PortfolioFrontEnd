@@ -1,5 +1,5 @@
-import { Component,EventEmitter,OnChanges,OnInit, Output} from '@angular/core';
-import { DatosService } from 'src/app/servicio/datos.service';
+import { Component, OnInit} from '@angular/core';
+import { PersonaService } from 'src/app/servicio/persona.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,21 +8,27 @@ import { DatosService } from 'src/app/servicio/datos.service';
 })
 export class NavbarComponent implements OnInit {
 
-  log : boolean = false; 
-  
-  constructor(private datos : DatosService) { }
+  usuarioAut : boolean = false;
+    
+  constructor(private perServ : PersonaService) { }
 
-  editarPortfolio(){
-    this.datos.modoEdicion();    
+  abrirModal(id : any){
+    id.style.display = "block";
   }
-  
+
+  cerrarModal(id : any){
+    id.style.display = "none";
+  }
+
   logout(){
-    window.location.reload();
+    this.perServ.logout();
+    this.usuarioAut = false;
   }
 
-  ngOnInit() { 
-    this.datos.loginEmision.subscribe(valor => {
-      this.log = valor;      
-   });
+  ngOnInit() {
+    this.perServ.estaAutenticado.subscribe({
+      next: (response) => this.usuarioAut = response,
+      error: (e) => console.error(e)
+    });
   }
 }

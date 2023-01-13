@@ -5,17 +5,17 @@
       <div class="row" #borrar>
         <div class="row justify-content-center">{{ edu.nombre }}</div>
         <div class="col-sm-0 col-md-4 col-lg-3 text-center">
-          <img            
-            src="{{ edu.url || imagenDefault}}"
+          <img
+            src="{{ edu.url || imagenDefault }}"
             alt="Logo"
             class="p-0 img-thumbnail Logo"
           />
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 p-1 mt-1 border">
           <button
-            *ngIf="modoEdicion"
+            *ngIf="usuarioAut"
             class="btn btn-sm boton botones"
-            (click)="abrirModal(modalEdicion)"
+            (click)="abrirModal(modalEdicion, educacion)"
           >
             <i class="fa-solid fa-pen noPointers"></i>
           </button>
@@ -26,21 +26,22 @@
           </div>
         </div>
       </div>
-      <div class="p-2" *ngIf="modoEdicion">
+      <div class="p-2" *ngIf="usuarioAut">
         <button class="btn botones btn-sm" (click)="eliminarEdu(edu.id)">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-      <div class="modal" tabindex="-1" #modalEdicion>
+      <div class="modal" tabindex="-1" #modalEdicion id="modalEdu{{ edu.id }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <span class="modal-title">editar</span>
+              <span class="modal-title">Datos:</span>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
-                (click)="cerrarModal(modalEdicion)"
+                (click)="cerrarModal(modalEdicion, educacion)"
+                id="cerrarModalEdu"
               ></button>
             </div>
             <div class="modal-body">
@@ -58,11 +59,13 @@
                   name="nombre"
                   required
                 />
-                <label>Url:</label>
+                <label>Logo(url):</label>
                 <input
-                  type="text"
+                  type="url"
+                  pattern="https://.*"
+                  size="255"
                   class="form-control"
-                  id="url"
+                  id="urlEdu"
                   [(ngModel)]="edu.url"
                   name="url"
                 />
@@ -86,7 +89,7 @@
         </div>
       </div>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="modoEdicion">
+    <div class="d-grid gap-2 col-6 mx-auto" *ngIf="usuarioAut">
       <button class="btn btn-outline-primary" (click)="agregarEdu()">
         <i class="fa-solid fa-plus noPointers"></i>
       </button>

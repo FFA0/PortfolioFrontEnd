@@ -2,13 +2,11 @@
   width: 100%;
   height: 400px;
   background-size: 100% 100%;
-  line-height: 400px; 
+  line-height: 400px;
 }
 
 #botonBanner {
   margin-left: -18px;
   margin-top: -14px;
   position: absolute;
- 
 }
-

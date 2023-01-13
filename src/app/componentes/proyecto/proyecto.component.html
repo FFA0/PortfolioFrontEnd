@@ -5,36 +5,53 @@
       <div #borrar>
         <div>
           <button
-            *ngIf="modoEdicion"
+            *ngIf="usuarioAut"
             class="btn btn-sm boton botones"
             id="botProyecto"
-            (click)="abrirModal(modalEdicion)"
+            (click)="abrirModal(modalEdicion, pro)"
           >
             <i class="fa-solid fa-pen"></i>
           </button>
           <p>
-            {{ proyecto.nombre }} {{proyecto.fecha | date: "yyyy-mm-dd"}}
+            {{ proyecto.nombre }} ({{
+              proyecto.fechaInicio | date : "yyyy-mm-dd"
+            }}/{{ proyecto.fechaFinal | date : "yyyy-mm-dd" }})
           </p>
         </div>
         <div class="border p-2">
           <p>
             {{ proyecto.descripcion }}
           </p>
+          <div *ngIf="proyecto.urlProyecto">
+            <a href="{{ proyecto.urlProyecto }}" class="btn btn-sm btn-primary"
+              >Ir al proyecto</a
+            >
+          </div>
         </div>
-        <button class="btn botones btn-sm" id="botEliminar" *ngIf="modoEdicion" (click)="eliminarPro(proyecto.id)">
+        <button
+          *ngIf="usuarioAut"
+          class="btn botones btn-sm"
+          id="botEliminar"
+          (click)="eliminarPro(proyecto.id)"
+        >
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
-      <div class="modal" tabindex="-1" #modalEdicion>
+      <div
+        class="modal"
+        tabindex="-1"
+        #modalEdicion
+        id="modalPro{{ proyecto.id }}"
+      >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <span class="modal-title">asd</span>
+              <span class="modal-title">Datos:</span>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
-                (click)="cerrarModal(modalEdicion)"
+                (click)="cerrarModal(modalEdicion, pro)"
               ></button>
             </div>
             <div class="modal-body">
@@ -50,14 +67,25 @@
                   id="nombre"
                   [(ngModel)]="proyecto.nombre"
                   name="nombre"
-                />                
-                <label>Url:</label>
+                  required
+                />
+                <label>Fecha de Inicio:</label>
                 <input
                   type="date"
                   class="form-control"
-                  id="fecha"
-                  [(ngModel)]="proyecto.fecha"
-                  name="fecha"
+                  id="fechaInicio"
+                  [(ngModel)]="proyecto.fechaInicio"
+                  name="fechaInicio"
+                  required
+                />
+                <label>Fecha de Finalización:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaFinal"
+                  [(ngModel)]="proyecto.fechaFinal"
+                  name="fechaFinal"
+                  required
                 />
                 <label>Descripcion:</label>
                 <textarea
@@ -69,6 +97,18 @@
                   name="descripcion"
                   required
                 ></textarea>
+                <span>
+                  <label>Link al proyecto:</label>
+                  <input
+                    type="url"
+                    pattern="https://.*"
+                    size="255"
+                    class="form-control"
+                    [(ngModel)]="proyecto.urlProyecto"
+                    id="urlProyecto"
+                    name="urlProyecto"
+                  />
+                </span>
                 <button type="submit" class="btn btn-primary mt-1">
                   Enviar!
                 </button>
@@ -80,7 +120,7 @@
       </div>
     </div>
   </div>
-  <div class="d-grid gap-2 col-6 mx-auto mt-2 mb-2" *ngIf="modoEdicion">
+  <div class="d-grid gap-2 col-6 mx-auto mt-2 mb-2" *ngIf="usuarioAut">
     <button class="btn btn-outline-primary" (click)="agregarPro()">
       <i class="fa-solid fa-plus noPointers"></i>
     </button>
