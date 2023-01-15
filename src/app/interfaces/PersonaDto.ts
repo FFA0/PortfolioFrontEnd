@@ -1,9 +1,9 @@
 
 import { Educacion } from "./Educacion";
 import { Experiencia } from "./Experiencia";
+import { Habilidad } from "./Habilidad";
 import { Localidad } from "./Localidad";
 import { Proyecto } from "./Proyecto";
-import { Tecnologia } from "./Habilidad";
 
 export interface PersonaDto {
 
@@ -17,6 +17,6 @@ export interface PersonaDto {
     listaEducacion : Educacion[];
     listaExperiencia : Experiencia[];
     listaProyecto : Proyecto[];
-    listaTecnologia : Tecnologia[];
+    listaHabilidad : Habilidad[];
     localidad : Localidad;
 }

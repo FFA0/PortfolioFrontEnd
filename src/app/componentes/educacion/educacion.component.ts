@@ -53,6 +53,8 @@ export class EducacionComponent implements OnInit {
     this.eduServ.agregarEdu(edu).subscribe(response => {
       this.listaEdu.push(response);
     });
+    
+    
   }
 
   eliminarEdu(ids: number) {
@@ -67,7 +69,7 @@ export class EducacionComponent implements OnInit {
 
   ngOnInit() {
     this.perServ.traerPortfolio().subscribe({
-      next: (v) => this.listaEdu = v.listaEducacion,
+      next: (response) => this.listaEdu = response.listaEducacion,
       error: (e) => console.error(e)
     });
     this.perServ.estaAutenticado.subscribe({

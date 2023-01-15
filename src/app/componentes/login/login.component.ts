@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     let l: Login =
       { "usuario": lForm.value.usuario, "contrasena": lForm.value.contrasena }
 
-    if (lForm.valid == true) {
+    if (lForm.valid) {
       this.perServ.login(l).subscribe({
         next: (response) => {
           if (response != null) {

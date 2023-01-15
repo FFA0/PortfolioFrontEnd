@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PersonaDto } from 'src/app/interfaces/PersonaDto';
-import { Tecnologia } from 'src/app/interfaces/Habilidad';
 import { PersonaService } from 'src/app/servicio/persona.service';
-import { TecnologiaService } from 'src/app/servicio/habilidad.service';
+import { HabilidadService } from 'src/app/servicio/habilidad.service';
+import { Habilidad } from 'src/app/interfaces/Habilidad';
 
 @Component({
   selector: 'app-skills',
@@ -12,7 +11,7 @@ import { TecnologiaService } from 'src/app/servicio/habilidad.service';
 })
 export class SkillsComponent implements OnInit {
 
-  listaTec: Tecnologia[] = [];
+  listaHabilidad : Habilidad[] = [];
   usuarioAut: boolean = false;
   formDefault: any;
 
@@ -26,53 +25,53 @@ export class SkillsComponent implements OnInit {
     form.resetForm(this.formDefault);
   }
 
-  enviar(f: NgForm, tecId: number) {
-    let tec: Tecnologia = {
-      id: tecId, nombre: f.value.nombre,
+  enviar(f: NgForm, habilId: number) {
+    let habil: Habilidad = {
+      id: habilId, nombre: f.value.nombre,
       porcentaje: f.value.porcentaje,
       persona: { id: 1 }
     }
     if (f.valid) {
-      this.tecServ.editarTec(tec).subscribe({
+      this.HabilServ.editarHabil(habil).subscribe({
         error: (e) => console.error(e)
       });
-      (document.getElementById("modalSkill" + tecId) as HTMLElement).style.display = "none";
+      (document.getElementById("modalSkill" + habilId) as HTMLElement).style.display = "none";
     }
     else {
       alert("Rellene los campos que faltan.");
     }
   }
 
-  agregarTec() {
-    let tec: Tecnologia = {
+  agregarHabil() {
+    let habil: Habilidad = {
       id: 0, nombre: "vacio", porcentaje: 0,
       persona: { "id": 1 }
     }
-    this.tecServ.agregarTec(tec).subscribe({
-      next: (response) => this.listaTec.push(response),
+    this.HabilServ.agregarHabil(habil).subscribe({
+      next: (response) => this.listaHabilidad.push(response),
       error: (e) => console.error(e)
-    });
+    });      
   }
 
-  eliminarTec(valor: number) {
-    this.tecServ.eliminarTec(valor).subscribe();
-    this.listaTec.forEach((element, index) => {
-      if (element.id == valor) this.listaTec.splice(index, 1);
+  eliminarHabil(valor: number) {
+    this.HabilServ.eliminarHabil(valor).subscribe();
+    this.listaHabilidad.forEach((element, index) => {
+      if (element.id == valor) this.listaHabilidad.splice(index, 1);
     });
   }
 
   constructor(private perServ: PersonaService,
-    private tecServ: TecnologiaService) { }
+    private HabilServ: HabilidadService) { }
 
   ngOnInit() {
     this.perServ.traerPortfolio().subscribe({
-      next: (v) => this.listaTec = v.listaTecnologia,
-      error: (e) => console.error(e)
+      next: (response) => this.listaHabilidad = response.listaHabilidad,
+      error: (e) => console.error(e)  
     });
     this.perServ.estaAutenticado.subscribe({
       next: (response) => this.usuarioAut = response,
       error: (e) => console.error(e)
-    });
+    });    
   }
 
 }

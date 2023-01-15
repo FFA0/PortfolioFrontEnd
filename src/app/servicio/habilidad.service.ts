@@ -1,28 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tecnologia } from '../interfaces/Habilidad';
+import { Habilidad } from '../interfaces/Habilidad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TecnologiaService {
+export class HabilidadService {
 
   apiUrl : String;
 
   constructor(private http : HttpClient) {
-    this.apiUrl = "https://portfoliobackend-wgl5.onrender.com";
+    this.apiUrl = "https://portfoliobackend-3mxq.onrender.com";
   }
 
-  agregarTec(tec : Tecnologia) : Observable<Tecnologia>{
-    return this.http.post<Tecnologia>(this.apiUrl + "/habilidad/crear", tec);
+  agregarHabil(habil : Habilidad) : Observable<Habilidad>{
+    return this.http.post<Habilidad>(this.apiUrl + "/habilidad/crear", habil);
   }
 
-  editarTec(tec : Tecnologia) : Observable<Tecnologia>{
-    return this.http.put<Tecnologia>(this.apiUrl + "/habilidad/editar/" + tec.id, tec);
+  editarHabil(habil : Habilidad) : Observable<Habilidad>{
+    return this.http.put<Habilidad>(this.apiUrl + "/habilidad/editar/" + habil.id, habil);
   }
 
-  eliminarTec(id : number) : Observable<Tecnologia>{
-    return this.http.delete<Tecnologia>(this.apiUrl + "/habilidad/eliminar/" + id);
+  eliminarHabil(id : number) : Observable<Habilidad>{
+    return this.http.delete<Habilidad>(this.apiUrl + "/habilidad/eliminar/" + id);
   } 
 }

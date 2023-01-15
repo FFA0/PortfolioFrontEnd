@@ -15,7 +15,7 @@ export class PersonaService {
   usuario: Observable<Login>;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = "https://portfoliobackend-wgl5.onrender.com";
+    this.apiUrl = "https://portfoliobackend-3mxq.onrender.com";
 
     this.usuarioActual = new BehaviorSubject<Login>(JSON.parse(sessionStorage.getItem("usuario") || "{}"));
     this.usuario = this.usuarioActual.asObservable();

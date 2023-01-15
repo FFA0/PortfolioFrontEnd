@@ -10,7 +10,7 @@ export class ExperienciaService {
   apiUrl : String;
 
   constructor(private http : HttpClient) { 
-    this.apiUrl = "https://portfoliobackend-wgl5.onrender.com";
+    this.apiUrl = "https://portfoliobackend-3mxq.onrender.com";
   }
 
   agregarExp(exp : Experiencia) : Observable<Experiencia>{

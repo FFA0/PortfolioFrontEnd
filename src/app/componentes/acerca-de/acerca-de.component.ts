@@ -28,7 +28,7 @@ export class AcercaDeComponent implements OnInit {
       urlBanner: pers.value.urlBanner, listaEducacion: this.persDatos.listaEducacion,
       listaExperiencia: this.persDatos.listaExperiencia,
       listaProyecto: this.persDatos.listaProyecto,
-      listaTecnologia: this.persDatos.listaTecnologia,
+      listaHabilidad: this.persDatos.listaHabilidad,
       localidad: pers.value.localidad
     }
     if (pers.valid) {
@@ -65,7 +65,7 @@ export class AcercaDeComponent implements OnInit {
       listaEducacion: [],
       listaExperiencia: [],
       listaProyecto: [],
-      listaTecnologia: [],
+      listaHabilidad: [],
       localidad: { id: 1, localidad: "" }
     }
   }
